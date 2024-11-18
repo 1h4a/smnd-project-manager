@@ -1,5 +1,4 @@
-import Image from "next/image";
-
+// import Image from "next/image";
 export default function Home() {
   return (
       <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
