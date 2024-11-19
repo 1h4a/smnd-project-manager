@@ -19,7 +19,7 @@ const effra = localFont({
 })
 
 export const metadata: Metadata = {
-  title: "Trinity v0.1",
+  title: "SMND",
   description: "Project Platform"
 };
 

@@ -15,6 +15,12 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        'smnd': '#427BE9',
+        'almostblack': '#1D1D1D',
+        'ultradark': '#515151',
+        'darkgray': '#727272',
+        'ngray': '#E9E9E9',
+        'textgray': '#B0B0B0',
       },
     },
   },
