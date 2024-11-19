@@ -6,7 +6,7 @@
                 <img src="/icon.svg" className="block md:hidden" alt="Domov"/>
             </a>
             <a href="/" className="flex items-center justify-center">
-                <p className="mr-3">
+                <p className="mr-3 md:block hidden">
                     Meno Priezvisko
                 </p>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
