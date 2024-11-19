@@ -45,7 +45,7 @@ export default function Home() {
                                 <p>Pre pokračovanie sa prihláste pomocou Teams účtu.</p>
                             </div>
                             <Button
-                                className="inline-flex rounded w-fit bg-gray-800 py-2 px-4 my-8 text-white 2xl:text-xl lg:text-lg text-base  hover:bg-gray-700 active:bg-gray-900 hover:outline-1 hover:outline-gray-300"> Entra
+                                className="inline-flex rounded w-fit bg-gray-800 py-2 px-4 my-8 text-white 2xl:text-xl lg:text-lg text-base  hover:bg-gray-700 active:bg-gray-900 hover:outline-1 hover:outline-gray-300 transition-colors"> Entra
                                 ID Login </Button>
                     </div>
                 </div>
