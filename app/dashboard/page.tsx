@@ -66,7 +66,7 @@ export default function Page() {
 
             </div>
             <h1 className="font-medium text-3xl lg:text-4xl 2xl:text-5xl ml-8"> Moje práce </h1>
-            <div className="flex flex-col w-1/3">
+            <div className="flex flex-col w-1/2">
                 <PLDElement name="abcdahgregtwrefgvwsefwefwefwsefw adfgadsg a adgfagd adg adg adgaad"
                             consultant="Meno Priezvisko" type="SOČ (Stredoškolská Odborná Činnosť)"/>
                 <PLDElement name="Téma práce" consultant="Meno Priezvisko" type="SOČ (Stredoškolská Odborná Činnosť)"/>

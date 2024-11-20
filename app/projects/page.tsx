@@ -5,7 +5,7 @@ const permission: number = 1; // Lx permission level
 const PElement = (props: any) => {
     //
     return (
-        <div className="mt-4 ml-8 w-1/3 divide-y divide-white/5 rounded-xl bg-white drop-shadow-xl shrink-0">
+        <div className="mt-4 ml-8 w-fit h-fit divide-y divide-white/5 rounded-xl bg-white drop-shadow-xl shrink-0">
             <div className="p-6">
                 <span
                     className="flex flex-row w-full justify-between text-2xl font-medium text-black p-2"> {/*Project name and consultant*/}
@@ -132,7 +132,7 @@ export default function Page() {
     return (
         <div className="flex flex-col justify-normal h-full overflow-auto">
             <h1 className="font-medium text-3xl lg:text-4xl 2xl:text-5xl ml-8"> Moje práce </h1>
-            <div className="flex flex-row w-full max-w-full pr-8 h-fit pb-12 pt-4 overflow-x-scroll">
+            <div className="flex flex-row shrink-0 w-full max-w-full pr-8 min-h-fit h-fit pb-12 overflow-y-hidden overflow-x-scroll">
                 <PElement name="Téma práce" consultant="Meno Priezvisko" type="SOČ (Stredoškolská Odborná Činnosť)"
                           ndDate="6.5." ndName="Konzultácia"/>
                 <PElement name="abcdahgregtwrefgvwsefwefwefwsefw adfgadsg a adgfagd adg adg adgaad"
