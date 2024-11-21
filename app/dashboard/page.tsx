@@ -1,6 +1,6 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Button } from '@headlessui/react'
 
-const permission: number = 1; // Lx permission level
+const permission: number = 2; // Lx permission level
 const TLElement = (props: any) => {
     return (
         <div
@@ -45,11 +45,11 @@ const PLDElement = (props: any) => {
 export default function Page() {
     // data is example junk, add object generation abilities
     return (
-        <div className="flex flex-col justify-normal h-full overflow-auto">
+        <div className="flex flex-col justify-normal h-full overflow-auto pb-4">
             <h1 className="font-medium text-3xl lg:text-4xl 2xl:text-5xl ml-8"> Najbližšie termíny </h1>
             <div
                 className="w-32 h-96 bg-gradient-to-l from-white to-transparent z-40 absolute right-0 top-100 md:block hidden"></div>
-            <div className="flex flex-row w-full h-fit pb-12 pt-8 overflow-x-scroll">
+            <div className="flex flex-row w-full h-fit pb-12 pt-8 overflow-x-scroll grow-0 shrink-0">
                 <TLElement name="Konzultácia" date="6.5." studentName="Meno Priezvisko"/>
                 <TLElement name="Prezentácia práce" date="30.5." studentName="Meno Priezvisko"/>
                 <TLElement name="Termín" date="1.10." studentName="Meno Priezvisko"/>

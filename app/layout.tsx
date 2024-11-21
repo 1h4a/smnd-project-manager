@@ -31,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
     <body
-        className={`${effra.className} antialiased min-h-screen max-h-screen`}>
+        className={`${effra.className} antialiased h-fit`}>
         <Nav />
     {children}
     </body>

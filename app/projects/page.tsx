@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Disclosure, DisclosureButton, DisclosurePanel, Button } from '@headlessui/react'
 
-const permission: number = 1; // Lx permission level
+const permission: number = 2; // Lx permission level
 const PElement = (props: any) => {
     //
     return (
@@ -130,9 +130,9 @@ const PElement = (props: any) => {
 
 export default function Page() {
     return (
-        <div className="flex flex-col justify-normal h-full overflow-auto">
+        <div className="flex flex-col justify-normal h-full overflow-auto pb-4">
             <h1 className="font-medium text-3xl lg:text-4xl 2xl:text-5xl ml-8"> Moje práce </h1>
-            <div className="flex flex-row shrink-0 w-full max-w-full pr-8 min-h-fit h-fit pb-12 overflow-y-hidden overflow-x-scroll">
+            <div className="flex flex-row shrink-0 grow-0 w-full pr-8 h-fit pb-12 overflow-y-hidden overflow-x-scroll">
                 <PElement name="Téma práce" consultant="Meno Priezvisko" type="SOČ (Stredoškolská Odborná Činnosť)"
                           ndDate="6.5." ndName="Konzultácia"/>
                 <PElement name="abcdahgregtwrefgvwsefwefwefwsefw adfgadsg a adgfagd adg adg adgaad"
@@ -146,8 +146,11 @@ export default function Page() {
             </div>
             {(permission > 1) && (
                 <span className="ml-8 text-lg">
-                    <Button
-                        className="bg-ngray text-darkgray rounded-3xl p-4 px-5 mt-2 mr-4 hover:bg-gray-100 transition-colors">Zoznam všetkých projektov</Button>
+                    <Link
+                    href="/projects/list">
+                        <Button
+                            className="bg-ngray text-darkgray rounded-3xl p-4 px-5 mt-2 mr-4 hover:bg-gray-100 transition-colors" >Zoznam všetkých projektov</Button>
+                    </Link>
                     <Button
                         className="bg-ngray text-darkgray rounded-3xl p-4 px-5 mt-2 mr-4 hover:bg-gray-100 transition-colors">Vytvoriť nový projekt</Button>
                     <Button

@@ -13,6 +13,9 @@ const links = [ // Add permission assignment
 
 export default function NavLinks() {
     const pathname = usePathname();
+    const split = pathname.split('/');
+    console.log(split);
+    const firstpath = split[1];
     return (
         <>
             {links.map((link) => {
@@ -22,7 +25,7 @@ export default function NavLinks() {
                         href={link.href}
                         className={clsx("flex h-[48px] items-center justify-center text-md text-gray-700 hover:text-smnd md:flex-none md:justify-start md:p-2 md:px-3",
                             {
-                                ' text-smnd': pathname === link.href,
+                                ' text-smnd': ('/' + firstpath) === ((link.href === '/admin/database') ? '/admin' : link.href),
                             })}
                     >
                         <p className="hidden md:block">{link.name}</p>

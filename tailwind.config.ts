@@ -15,12 +15,19 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        // general UI colors
         'smnd': '#427BE9',
         'almostblack': '#1D1D1D',
         'ultradark': '#515151',
-        'darkgray': '#727272',
+        'darkgray': '#6b6b6b',
+        'regulargray': '#d6d6d6',
         'ngray': '#E9E9E9',
-        'textgray': '#B0B0B0',
+        'textgray': '#adadad',
+        // filetype colors
+        'docx': '#6B8BC8',
+        'pptx': '#D06759',
+        'xlsx': '#729C6E',
+        'uid-ft': '#727272'
       },
     },
   },
