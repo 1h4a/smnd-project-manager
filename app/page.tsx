@@ -3,7 +3,8 @@ import Image from "next/image";
 import { Button } from '@headlessui/react';
 
 export default function Home() {
-    let success: boolean = false;
+    let success: boolean = true;
+
     if (success) {
         // auth success page
         return (
@@ -18,8 +19,8 @@ export default function Home() {
                 </div>
                     <Image
                         src="/logo-hero.svg"
-                        width={900}
-                        height={500}
+                        width={1500}
+                        height={1500}
                         className="hidden md:block absolute right-0 bottom-0 blur-2xl -z-50"
                         alt="SMND logo, used as a hero image"
                     />
@@ -51,8 +52,8 @@ export default function Home() {
                 </div>
                 <Image
                     src="/logo-hero.svg"
-                    width={900}
-                    height={500}
+                    width={1500}
+                    height={1500}
                     className="hidden md:block absolute right-0 bottom-0 blur-2xl -z-50"
                     alt="SMND logo, used as a hero image"
                 />
