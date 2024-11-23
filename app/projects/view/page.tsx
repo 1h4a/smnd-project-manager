@@ -2,10 +2,10 @@ import Link from "next/link";
 const TLElement = (props: any) => {
     return (
         <div
-            className="flex-none flex flex-col w-fit min-w-8 bg-white h-full rounded-3xl shadow-2xl outline outline-1 outline-gray-100 text-2xl text-left ml-8 py-8 justify-center items-center">
-            <div className="flex flex-col items-start px-10">
-                <p> {props.date} </p>
-                <p className="font-medium text-3xl pt-8"> {props.name} </p>
+            className="flex-none flex flex-col w-fit min-w-8 h-full rounded-3xl text-2xl text-left justify-center items-center">
+            <div className="flex flex-col items-start px-10 pt-2">
+                <p className="lg:text-xl xl:text-2xl 2xl:text-3xl"> {props.date} </p>
+                <p className="font-medium lg:text-xl xl:text-2xl 2xl:text-3xl"> {props.name} </p>
             </div>
         </div>
     );
@@ -56,7 +56,7 @@ export default function Page() {
                         </svg>
                     </Link>
                     <span
-                        className="w-full h-5/6 grid grid-rows-4 grid-cols-5 grid-flow-row gap-4 bg-black/10 shadow-inner shadow-gray-200 pt-2"> {/*Latest files view - always 5> files - to-do: file fetching based on project id*/}
+                        className="w-full h-5/6 grid grid-rows-3 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 grid-flow-row gap-4 bg-black/10 shadow-inner shadow-gray-200 pt-2"> {/*Latest files view - always 5> files - to-do: file fetching based on project id*/}
                         <div className="flex flex-col justify-center items-center py-4">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                          className="size-16 text-docx">
@@ -104,7 +104,7 @@ export default function Page() {
                     <Link
                         key="Najblizšie termíny"
                         href="/deadlines"
-                        className={"flex items-center justify-between text-2xl font-medium px-8 py-6"}
+                        className={"flex items-center justify-between text-2xl font-medium px-8 pt-6"}
                     >
                         <p className="font-medium text-black"> Najblizšie termíny </p>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -116,8 +116,6 @@ export default function Page() {
                     </Link>
                     <div className="flex flex-row justify-start items-center py-4">
                         <TLElement name="Konzultácia" date="6.5." studentName="Meno Priezvisko"/>
-                        <TLElement name="Prezentácia práce" date="30.5." studentName="Meno Priezvisko"/>
-                        <TLElement name="Prezentácia práce" date="30.5." studentName="Meno Priezvisko"/>
                     </div>
                 </div>
                 <div
@@ -139,7 +137,7 @@ export default function Page() {
                         <Link
                             key="Posudky"
                             href="/deadlines/reviews"
-                            className={"flex items-center justify-start text-2xl font-normal px-8 pb-2"}
+                            className={"flex items-center justify-start lg:text-lg xl:text-xl 2xl:text-2xl font-normal px-8 pb-2"}
                         >
                             <p className=" text-darkgray"> Posudok z 10.10.2025 </p>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -152,7 +150,7 @@ export default function Page() {
                         <Link
                             key="Posudky"
                             href="/deadlines/reviews"
-                            className={"flex items-center justify-start text-2xl font-normal px-8 pb-2"}
+                            className={"flex items-center justify-start lg:text-lg xl:text-xl 2xl:text-2xl font-normal px-8 pb-2"}
                         >
                             <p className=" text-darkgray"> Posudok z 10.12.2025 </p>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"

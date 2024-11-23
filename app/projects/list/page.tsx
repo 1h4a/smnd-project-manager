@@ -23,7 +23,7 @@ const ListElement = (props: any) => {
             <Link
             href="/projects/view">
                 <Button
-                    className="items-center justify-center text-center px-12 py-2 bg-gray-100 text-textgray shadow-inner hover:shadow-none hover:bg-gray-200 active:bg-regulargray transition-colors">
+                    className="items-center h-full py-4 justify-center text-center px-12 bg-gray-100 text-textgray shadow-inner hover:shadow-none hover:bg-gray-200 active:bg-regulargray transition-colors">
                     Zobraziť
                 </Button>
             </Link>
