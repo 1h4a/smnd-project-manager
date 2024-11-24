@@ -1,9 +1,8 @@
 'use client';
-import { Button, Input, Listbox, ListboxButton, ListboxOption, ListboxOptions  } from '@headlessui/react'
+import { Input, Listbox, ListboxButton, ListboxOption, ListboxOptions  } from '@headlessui/react'
 import clsx from 'clsx'
 import { useState, useCallback } from 'react'
 import FileContext from '@/app/ui/components/filecontext'
-import Link from "next/link";
 
 const projects = [
     { id: 1, name: 'Práca 1' },
@@ -27,7 +26,7 @@ export default function Page() {
         event.preventDefault()
         const { clientX, clientY } = event
         console.log('Right-click detected:', { clientX, clientY })
-        setContextMenu({ x: clientX, y: clientY })
+        setContextMenu({ x: clientX -80, y: clientY-220 })
     }, [])
 
     const handleCloseContextMenu = useCallback(() => {
