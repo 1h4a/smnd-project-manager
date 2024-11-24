@@ -1,7 +1,8 @@
 'use client';
-import { Button, Input, Listbox, ListboxButton, ListboxOption, ListboxOptions, Dialog, DialogPanel  } from '@headlessui/react'
+import { Button, Input, Listbox, ListboxButton, ListboxOption, ListboxOptions  } from '@headlessui/react'
 import clsx from 'clsx'
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
+import FileContext from '@/app/ui/components/filecontext'
 import Link from "next/link";
 
 const projects = [
@@ -20,104 +21,19 @@ export default function Page() {
     const [selected, setSelected] = useState(projects[0])
     const [altselected, altsetSelected] = useState(views[0])
 
-    let x: number = 0, y: number = 0;
+    const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null)
 
-    document.addEventListener("contextmenu", (event) => {
-        event.preventDefault();
-    });
+    const handleContextMenu = useCallback((event: React.MouseEvent) => {
+        event.preventDefault()
+        const { clientX, clientY } = event
+        console.log('Right-click detected:', { clientX, clientY })
+        setContextMenu({ x: clientX, y: clientY })
+    }, [])
 
-    let [isOpen, setIsOpen] = useState(false)
-    let [contextX, setContextX] = useState<number>(0)
-    let [contextY, setContextY] = useState<number>(0)
-
-    const createDialogOnClick = (e: any) => {
-        let rect = e.currentTarget.getBoundingClientRect();
-        x = e.clientX - rect.left;
-        y = e.clientY - rect.top;
-        setContextX(x);
-        setContextY(y);
-        open()
-    }
-
-    function open() {
-        setIsOpen(true)
-    }
-
-    function close() {
-        setIsOpen(false)
-    }
-
-    const ContextMenu = (props: any) => {
-        return(
-        <Dialog open={isOpen} as="div" className="absolute z-10 focus:outline-none duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0" style={{'top': contextY, 'left': contextX}} onClose={close}>
-            <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-                <div className="flex min-h-full items-center justify-center p-4">
-                    <DialogPanel
-                        className="w-fit text-darkgray rounded-xl outline-2 -outline-offset-2 outline-black/50 bg-white mt-2 p-1 [--anchor-gap:var(--spacing-1)]"
-                    >
-                        <button
-                            className="transition-colors truncate text-nowrap w-full max-w-[20vw] group flex cursor-default items-center gap-2 rounded-lg py-1.5 px-3 hover:bg-textgray/20">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                 strokeWidth={1.5} stroke="currentColor" className="size-6">
-                                <path strokeLinecap="round" strokeLinejoin="round"
-                                      d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                            </svg>
-
-                            Nahrať súbor
-                        </button>
-                        <div className="my-0.5 h-px bg-textgray/30"></div>
-                        <button
-                            className="transition-colors truncate text-nowrap w-full max-w-[20vw] group flex cursor-default items-center gap-2 rounded-lg py-1.5 px-3 hover:bg-textgray/20">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                 strokeWidth={1.5} stroke="currentColor" className="size-6">
-                                <path strokeLinecap="round" strokeLinejoin="round"
-                                      d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                            </svg>
-
-
-                            Premenovať
-                        </button>
-                        <div className="my-0.5 h-px bg-textgray/30"></div>
-                        <button
-                            className="transition-colors truncate text-nowrap w-full max-w-[20vw] group flex cursor-default items-center gap-2 rounded-lg py-1.5 px-3 hover:bg-textgray/20">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                 strokeWidth={1.5} stroke="currentColor" className="size-6">
-                                <path strokeLinecap="round" strokeLinejoin="round"
-                                      d="m9 12.75 3 3m0 0 3-3m-3 3v-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                            </svg>
-
-
-                            Stiahnuť súbor
-                        </button>
-                        <div className="my-0.5 h-px bg-textgray/30"></div>
-                        <button
-                            className="transition-colors truncate text-nowrap w-full max-w-[20vw] group flex cursor-default items-center gap-2 rounded-lg py-1.5 px-3 hover:bg-textgray/20">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                 strokeWidth={1.5} stroke="currentColor" className="size-6">
-                                <path strokeLinecap="round" strokeLinejoin="round"
-                                      d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/>
-                            </svg>
-
-
-                            Podrobnosti
-                        </button>
-                        <div className="my-0.5 h-px bg-textgray/30"></div>
-                        <button
-                            className="transition-colors text-red-500 truncate text-nowrap w-full max-w-[20vw] group flex cursor-default items-center gap-2 rounded-lg py-1.5 px-3 hover:bg-textgray/20">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                 strokeWidth={1.5} stroke="currentColor" className="size-6">
-                                <path strokeLinecap="round" strokeLinejoin="round"
-                                      d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                            </svg>
-
-
-                            Vymazať súbor
-                        </button>
-                    </DialogPanel>
-                </div>
-            </div>
-        </Dialog>);
-    }
+    const handleCloseContextMenu = useCallback(() => {
+        console.log('Closing context menu')
+        setContextMenu(null)
+    }, [])
 
     return (
         <div className="w-full pr-32 h-[90vh] items-center justify-start overflow-hidden pb-16" >
@@ -166,10 +82,15 @@ export default function Page() {
 
             </div>
             <div
-                className="mt-4 ml-8 w-full h-5/6 divide-y rounded-xl bg-white drop-shadow-xl shrink-0 row-span-2" onContextMenu={createDialogOnClick}>
-                <div>
-                    <ContextMenu/>
-                </div>
+                className="mt-4 ml-8 w-full h-5/6 divide-y rounded-xl bg-white drop-shadow-xl shrink-0 row-span-2" onContextMenu={handleContextMenu}>
+
+                {contextMenu && (
+                    <FileContext
+                        x={contextMenu.x}
+                        y={contextMenu.y}
+                        onClose={handleCloseContextMenu}
+                    />
+                )}
 
                 <span
                     className="w-full h-full pt-8 grid grid-rows-8 md:grid-cols-12 grid-flow-row gap-4 bg-black/10 shadow-inner shadow-gray-200 outline outline-1 outline-textgray/40 rounded-xl"> {/*Latest files view - always 5> files - to-do: file fetching based on project id*/}
