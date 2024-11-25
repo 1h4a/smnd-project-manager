@@ -33,8 +33,6 @@ const PLDElement = (props: any) => {
                     className="bg-ngray text-darkgray rounded-3xl p-4 px-5 mt-2 mr-4 hover:bg-gray-100 transition-colors">Nahrané
                     súbory</Button>
                 <Button
-                    className="bg-ngray text-darkgray rounded-3xl p-4 px-5 mt-2 mr-4 hover:bg-gray-100 transition-colors">Posudky</Button>
-                <Button
                     className="bg-ngray text-darkgray rounded-3xl p-4 px-5 mt-2 mr-4 hover:bg-gray-100 transition-colors">Termíny</Button>
                 {(permission > 1) && (<Button
                     className="bg-red-400 text-white rounded-3xl p-4 px-5 mt-2 mr-4 hover:bg-red-500 transition-colors">Odstrániť</Button>)}

@@ -45,7 +45,7 @@ const PElement = (props: any) => {
             </div>
             <span
                 className="w-full flex flex-row justify-evenly bg-black/10 shadow-inner shadow-gray-200 "> {/*Latest files view - always 5> files - to-do: file fetching based on project id*/}
-                <div className="flex flex-col justify-center items-center py-4">
+                <div className="flex flex-col justify-center items-center p-4">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                          className="size-16 text-darkgray">
                         <path
@@ -53,7 +53,7 @@ const PElement = (props: any) => {
                     </svg>
                     <p className="text-darkgray"> verzia3.docx </p>
                 </div>
-                <div className="flex flex-col justify-center items-center py-4">
+                <div className="flex flex-col justify-center items-center p-4">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                          className="size-16 text-darkgray">
                         <path
@@ -61,7 +61,7 @@ const PElement = (props: any) => {
                     </svg>
                     <p className="text-darkgray"> graf.png </p>
                 </div>
-                <div className="flex flex-col justify-center items-center py-4">
+                <div className="flex flex-col justify-center items-center p-4">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                          className="size-16 text-darkgray">
                         <path
@@ -69,7 +69,7 @@ const PElement = (props: any) => {
                     </svg>
                     <p className="text-darkgray"> prezen...pptx </p>
                 </div>
-                <div className="flex flex-col justify-center items-center py-4">
+                <div className="flex flex-col justify-center items-center p-4">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                          className="size-16 text-darkgray">
                         <path
@@ -77,7 +77,7 @@ const PElement = (props: any) => {
                     </svg>
                     <p className="text-darkgray"> verzia2.docx </p>
                 </div>
-                <div className="flex flex-col justify-center items-center py-4">
+                <div className="flex flex-col justify-center items-center p-4">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                          className="size-16 text-darkgray">
                         <path
@@ -86,29 +86,11 @@ const PElement = (props: any) => {
                     <p className="text-darkgray"> dotaznik.xlsx </p>
                 </div>
             </span>
-            <div className="p-6">
-                <span
-                    className="flex flex-row w-full justify-between text-2xl font-medium text-ultradark px-2 py-1"> {/*Reviews*/}
-                    <Link
-                        key="Najnovšie posudky"
-                        href="/deadlines/reviews"
-                        className={"flex items-center space-x-2"}
-                    >
-                    <p className="font-medium"> Najnovšie posudky </p>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                         className="size-5">
-                        <path fillRule="evenodd"
-                              d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z"
-                              clipRule="evenodd"/>
-                    </svg>
-                </Link>
-                </span>
+            <div className="px-6 pt-2 pb-6">
                 {(permission > 1) ? (
-                    <div className="mt-2 text-lg ">
+                    <div className="text-lg ">
                         <Button
                             className="bg-ngray text-darkgray rounded-3xl p-4 px-5 mt-2 mr-4 hover:bg-gray-100 transition-colors">Zmeniť tému</Button>
-                        <Button
-                            className="bg-ngray text-darkgray rounded-3xl p-4 px-5 mt-2 mr-4 hover:bg-gray-100 transition-colors">Pridať posudok</Button>
                         <Button
                             className="bg-ngray text-darkgray rounded-3xl p-4 px-5 mt-2 mr-4 hover:bg-gray-100 transition-colors">Zobraziť žiadosti</Button>
                     </div>

@@ -7,7 +7,6 @@ const links = [ // Add permission assignment
     { name: 'Prehľad', href: '/dashboard' },
     { name: 'Aktuálne Práce', href: '/projects',},
     { name: 'Súbory', href: '/files' },
-    { name: 'Posudky a Termíny', href: '/deadlines' },
     { name: 'Databáza', href: '/admin/database' }
 ];
 

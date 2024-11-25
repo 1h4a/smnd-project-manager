@@ -29,12 +29,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-    <body
-        className={`${effra.className} antialiased h-fit`}>
-        <Nav />
-    {children}
-    </body>
-    </html>
+      <html lang='sk' suppressHydrationWarning>
+      <body
+          className={`${effra.className} antialiased h-fit`}>
+      <Nav/>
+      {children}
+      </body>
+      </html>
   );
 }
