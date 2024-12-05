@@ -1,6 +1,6 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Button } from '@headlessui/react'
 
-const permission: number = 2; // Lx permission level
+const permission: number = 3; // Lx permission level
 const TLElement = (props: any) => {
     return (
         <div
@@ -71,7 +71,7 @@ export default function Page() {
                 <PLDElement name="Téma práce" consultant="Meno Priezvisko" type="SOČ (Stredoškolská Odborná Činnosť)"/>
             </div>
             {(permission>2) && (<a href="/admin" className="flex items-center space-x-2">
-                <h1 className="font-medium text-3xl lg:text-4xl 2xl:text-5xl ml-8 mt-8"> Všeobecný prehľad </h1>
+                <h1 className="font-medium text-3xl lg:text-4xl 2xl:text-5xl ml-8 mt-8"> Administrátorský prehľad </h1>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-8 mt-9">
                     <path fillRule="evenodd"
                           d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z"
