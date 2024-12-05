@@ -1,97 +1,11 @@
 'use client'
 
-import { useState, ReactNode } from 'react'
-import Link from 'next/link'
-
-// Button Component
-const Button = ({ children, onClick, className = '', variant = 'default' }: { children: ReactNode, onClick?: () => void, className?: string, variant?: 'default' | 'outline' }) => {
-    const baseStyle = "px-4 py-2 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors"
-    const variantStyles = {
-        default: "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500",
-        outline: "border border-gray-300 text-gray-700 hover:bg-gray-50 focus:ring-blue-500"
-    }
-    return (
-        <button className={`${baseStyle} ${variantStyles[variant]} ${className}`} onClick={onClick}>
-            {children}
-        </button>
-    )
-}
-
-// Input Component
-const Input = ({ placeholder, value, onChange, className = '' }: { placeholder: string, value?: string, onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void, className?: string }) => {
-    return (
-        <input
-            type="text"
-            placeholder={placeholder}
-            value={value}
-            onChange={onChange}
-            className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${className}`}
-        />
-    )
-}
-
-// Checkbox Component
-const Checkbox = ({ id, label }: { id: string, label: string }) => {
-    return (
-        <div className="flex items-center">
-            <input
-                type="checkbox"
-                id={id}
-                className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-            />
-            <label htmlFor={id} className="ml-2 text-sm text-gray-700">
-                {label}
-            </label>
-        </div>
-    )
-}
-
-// Select Component
-const Select = ({ placeholder, options }: { placeholder: string, options: { value: string, label: string }[] }) => {
-    return (
-        <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <option value="">{placeholder}</option>
-            {options.map((option) => (
-                <option key={option.value} value={option.value}>
-                    {option.label}
-                </option>
-            ))}
-        </select>
-    )
-}
-
-// Card Component
-const Card = ({ children }: { children: ReactNode }) => {
-    return (
-        <div className="bg-white shadow-md rounded-lg overflow-hidden">
-            {children}
-        </div>
-    )
-}
-
-const CardHeader = ({ children }: { children: ReactNode }) => {
-    return (
-        <div className="px-6 py-4 bg-gray-50 border-b border-gray-200">
-            {children}
-        </div>
-    )
-}
-
-const CardTitle = ({ children }: { children: ReactNode }) => {
-    return (
-        <h2 className="text-xl font-semibold text-gray-800">
-            {children}
-        </h2>
-    )
-}
-
-const CardContent = ({ children }: { children: ReactNode }) => {
-    return (
-        <div className="px-6 py-4">
-            {children}
-        </div>
-    )
-}
+import { useState } from 'react'
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 const ListElement = ({ name, student, consultant, type, year, alt }: {
     name: string,
@@ -128,12 +42,7 @@ export default function DatabaseBrowser() {
     const [searchTerm, setSearchTerm] = useState('')
 
     return (
-        <div className="container mx-auto py-8">
-            <Link href="/projects" className="flex items-center text-gray-600 hover:text-gray-800 mb-6">
-                <span className="mr-2">←</span>
-                <span>Back to Current Projects</span>
-            </Link>
-
+        <div className="container mx-auto py-8 w-full h-full">
             <Card>
                 <CardHeader>
                     <CardTitle>Database Browser</CardTitle>
@@ -156,24 +65,35 @@ export default function DatabaseBrowser() {
                             <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                 <Input placeholder="Responsible Teacher" />
                                 <Input placeholder="Student" />
-                                <Checkbox id="submitted" label="Submitted" />
-                                <Select
-                                    placeholder="Type of Project"
-                                    options={[
-                                        { value: "research", label: "Research" },
-                                        { value: "development", label: "Development" },
-                                        { value: "analysis", label: "Analysis" },
-                                    ]}
-                                />
-                                <Select
-                                    placeholder="School Year"
-                                    options={[
-                                        { value: "2023/2024", label: "2023/2024" },
-                                        { value: "2024/2025", label: "2024/2025" },
-                                    ]}
-                                />
+                                <div className="flex items-center space-x-2">
+                                    <Checkbox id="submitted" />
+                                    <label htmlFor="submitted" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                        Submitted
+                                    </label>
+                                </div>
+                                <Select>
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Type of Project" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="research">Research</SelectItem>
+                                        <SelectItem value="development">Development</SelectItem>
+                                        <SelectItem value="analysis">Analysis</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                                <Select>
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="School Year" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="2023/2024">2023/2024</SelectItem>
+                                        <SelectItem value="2024/2025">2024/2025</SelectItem>
+                                    </SelectContent>
+                                </Select>
                                 <Button className="w-full">
-                                    <span className="mr-2">🔍</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                    </svg>
                                     Search
                                 </Button>
                             </div>
