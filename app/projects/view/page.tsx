@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useState, useCallback } from 'react'
 import FileContext from '@/app/ui/components/filecontext'
+
 const TLElement = (props: any) => {
     return (
         <div
@@ -126,19 +127,11 @@ export default function Page() {
                 </div>
                 <div
                     className="mt-4 ml-8 w-full h-full divide-y divide-white/5 rounded-xl bg-white drop-shadow-xl shrink-0">
-                    <Link
-                        key="Najblizšie termíny"
-                        href="/deadlines"
+                    <p
                         className={"flex items-center justify-between text-2xl font-medium px-8 pt-6"}
                     >
                         <p className="font-medium text-black"> Najblizšie termíny </p>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                             className="size-5 text-textgray">
-                            <path fillRule="evenodd"
-                                  d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z"
-                                  clipRule="evenodd"/>
-                        </svg>
-                    </Link>
+                    </p>
                     <div className="flex flex-row justify-start items-center py-4">
                         <TLElement name="Konzultácia" date="6.5." studentName="Meno Priezvisko"/>
                     </div>

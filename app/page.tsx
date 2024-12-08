@@ -1,12 +1,19 @@
 'use client';
 import Image from "next/image";
 import { Button } from '@headlessui/react';
+import { UserRole } from '@/lib/types'
+import { permanentRedirect } from 'next/navigation'
+import { redirect } from "next/navigation"
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
-    let success: boolean = true;
+    let success: boolean = false;
+    const router = useRouter()
 
     if (success) {
         // auth success page
+        permanentRedirect(`/dashboard`) // Navigate to the dashboard
         return (
             <div className="flex flex-none w-screen h-[calc(100vh-8rem)] justify-center md:justify-start items-center">
                 <div className="flex flex-none w-full md:w-1/2 h-1/2 items-center justify-center">

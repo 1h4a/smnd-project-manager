@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Nav from '@/app/ui/components/nav'
 import "./globals.css";
+import { cn } from "@/lib/utils"
 
 const effra = localFont({
     src: [
@@ -30,6 +31,7 @@ export default function RootLayout({
 }>) {
   return (
       <html lang='sk' suppressHydrationWarning>
+
       <body
           className={`${effra.className} antialiased h-fit`}>
       <Nav/>

@@ -1,6 +1,10 @@
-import { Disclosure, DisclosureButton, DisclosurePanel, Button } from '@headlessui/react'
+'use client'
 
-const permission: number = 3; // Lx permission level
+import { Disclosure, DisclosureButton, DisclosurePanel, Button } from '@headlessui/react'
+import {useEffect} from "react";
+import {useRouter} from "next/navigation";
+
+const permission: number = 1;
 const TLElement = (props: any) => {
     return (
         <div

@@ -1,4 +1,15 @@
-﻿import NavLinks from '@/app/ui/components/navlinks';
+﻿"use client"
+
+import NavLinks from '@/app/ui/components/navlinks';
+import { UserRole } from "@/lib/types"
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 export default function Nav() {
     return (
         <header className="sticky top-0 z-40 flex h-14 w-full items-center justify-between bg-white shadow-lg">
@@ -10,9 +21,9 @@ export default function Nav() {
                 <NavLinks/>
             </div>
                 <a href="/" className="flex items-center justify-center">
-                    <p className="mr-3 md:block hidden">
+                    {<p className="mr-3 md:block hidden">
                         Meno Priezvisko
-                    </p>
+                    </p>}
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                          className="size-10 mr-4 fill-darkgray">
                         <path fillRule="evenodd"
