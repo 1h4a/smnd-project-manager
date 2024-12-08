@@ -1,5 +1,6 @@
 ﻿import { useAuth } from '@/lib/auth-context'
 import { usePathname, permanentRedirect } from 'next/navigation'
+
 export function intAuth ():number {
     const roles: String[] = ["guest", "student", "teacher", "admin"]
     const { role } = useAuth();

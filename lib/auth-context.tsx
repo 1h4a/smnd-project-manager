@@ -19,7 +19,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const checkAuth = async () => {
             // Add auth state check code
             await new Promise(resolve => setTimeout(resolve, 1000))
-            setRole('student')
+            setRole('guest')
             setLoading(false)
         }
 
