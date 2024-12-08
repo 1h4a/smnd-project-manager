@@ -1,10 +1,9 @@
 'use client'
 
 import { Disclosure, DisclosureButton, DisclosurePanel, Button } from '@headlessui/react'
-import {useEffect} from "react";
-import {useRouter} from "next/navigation";
+import {intAuth, loginControl} from '@/lib/shared-utils'
 
-const permission: number = 1;
+let permission: number = 1;
 const TLElement = (props: any) => {
     return (
         <div
@@ -46,6 +45,9 @@ const PLDElement = (props: any) => {
 }
 export default function Page() {
     // data is example junk, add object generation abilities
+    permission = intAuth();
+    loginControl()
+
     return (
         <div className="flex flex-col justify-normal h-full overflow-auto pb-4">
             <h1 className="font-medium text-3xl lg:text-4xl 2xl:text-5xl ml-8"> Najbližšie termíny </h1>

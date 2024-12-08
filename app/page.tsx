@@ -1,19 +1,27 @@
 'use client';
 import Image from "next/image";
 import { Button } from '@headlessui/react';
-import { UserRole } from '@/lib/types'
 import { permanentRedirect } from 'next/navigation'
-import { redirect } from "next/navigation"
-import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { intAuth, loginControl } from "@/lib/shared-utils";
+import { useAuth } from "@/lib/auth-context";
+import {useEffect} from "react";
 
 export default function Home() {
-    let success: boolean = false;
-    const router = useRouter()
+    let lx = intAuth();
+    let success: boolean = (lx > 0)
+    loginControl()
+
+    const { setRole } = useAuth()
 
     if (success) {
         // auth success page
-        permanentRedirect(`/dashboard`) // Navigate to the dashboard
+        useEffect(() => {
+            const checkAuth = async () => {
+                await new Promise(resolve => setTimeout(resolve, 1000))
+                permanentRedirect(`/dashboard`) // Navigate to the dashboard
+            }
+            checkAuth()
+        }, [])
         return (
             <div className="flex flex-none w-screen h-[calc(100vh-8rem)] justify-center md:justify-start items-center">
                 <div className="flex flex-none w-full md:w-1/2 h-1/2 items-center justify-center">
@@ -53,8 +61,8 @@ export default function Home() {
                                 <p>Pre pokračovanie sa prihláste pomocou Teams účtu.</p>
                             </div>
                             <Button
-                                className="inline-flex rounded w-fit bg-almostblack py-2 px-4 my-8 text-white 2xl:text-xl lg:text-lg text-base  hover:bg-ultradark active:bg-gray-900 hover:outline-1 hover:outline-gray-300 transition-colors"> Entra
-                                ID Login </Button>
+                                className="inline-flex rounded w-fit bg-almostblack py-2 px-4 my-8 text-white 2xl:text-xl lg:text-lg text-base  hover:bg-ultradark active:bg-gray-900 hover:outline-1 hover:outline-gray-300 transition-colors"
+                                onClick={() => setRole('student')}> Entra ID Login </Button>
                     </div>
                 </div>
                 <Image

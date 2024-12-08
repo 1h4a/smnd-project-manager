@@ -1,7 +1,10 @@
+'use client'
+
 import Link from 'next/link';
 import { Disclosure, DisclosureButton, DisclosurePanel, Button } from '@headlessui/react'
+import {intAuth, loginControl} from '@/lib/shared-utils'
 
-const permission: number = 2; // Lx permission level
+let permission: number = 1; // Lx permission level
 const PElement = (props: any) => {
     //
     return (
@@ -111,6 +114,8 @@ const PElement = (props: any) => {
 }
 
 export default function Page() {
+    loginControl()
+    permission = intAuth();
     return (
         <div className="flex flex-col justify-normal h-full overflow-auto pb-4">
             <h1 className="font-medium text-3xl lg:text-4xl 2xl:text-5xl ml-8"> Moje práce </h1>

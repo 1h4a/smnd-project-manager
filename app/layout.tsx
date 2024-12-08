@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Nav from '@/app/ui/components/nav'
 import "./globals.css";
-import { cn } from "@/lib/utils"
+import { AuthProvider } from '@/lib/auth-context'
 
 const effra = localFont({
     src: [
@@ -34,8 +34,10 @@ export default function RootLayout({
 
       <body
           className={`${effra.className} antialiased h-fit`}>
-      <Nav/>
-      {children}
+      <AuthProvider>
+          <Nav/>
+          {children}
+      </AuthProvider>
       </body>
       </html>
   );

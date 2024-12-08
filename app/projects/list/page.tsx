@@ -1,6 +1,8 @@
+'use client'
 import { Button, Field, Input } from '@headlessui/react'
 import clsx from 'clsx'
 import Link from 'next/link'
+import {loginControl} from "@/lib/shared-utils";
 
 const ListElement = (props: any) => {
     return(
@@ -56,6 +58,7 @@ const MakeList = (props: any) => {
     );
 }
 export default function Page() {
+    loginControl()
     return (
         <div className="w-full h-fit items-center justify-center overflow-y-hidden pb-4">
             <Link

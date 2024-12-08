@@ -3,6 +3,7 @@ import { Input, Listbox, ListboxButton, ListboxOption, ListboxOptions  } from '@
 import clsx from 'clsx'
 import { useState, useCallback } from 'react'
 import FileContext from '@/app/ui/components/filecontext'
+import {loginControl} from "@/lib/shared-utils";
 
 const projects = [
     { id: 1, name: 'Práca 1' },
@@ -21,6 +22,8 @@ export default function Page() {
     const [altselected, altsetSelected] = useState(views[0])
 
     const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null)
+
+    loginControl()
 
     const handleContextMenu = useCallback((event: React.MouseEvent) => {
         event.preventDefault()

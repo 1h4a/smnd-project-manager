@@ -1,8 +1,7 @@
 ﻿"use client"
 
 import NavLinks from '@/app/ui/components/navlinks';
-import { UserRole } from "@/lib/types"
-import { cn } from "@/lib/utils"
+import { useAuth } from "@/lib/auth-context"
 import { Button } from "@/components/ui/button"
 import {
     DropdownMenu,
@@ -11,6 +10,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 export default function Nav() {
+    const { role, setRole } = useAuth()
     return (
         <header className="sticky top-0 z-40 flex h-14 w-full items-center justify-between bg-white shadow-lg">
             <a href="/" className="pl-5 py-2.5 w-fit">
@@ -21,9 +21,30 @@ export default function Nav() {
                 <NavLinks/>
             </div>
                 <a href="/" className="flex items-center justify-center">
-                    {<p className="mr-3 md:block hidden">
+                    {/*<p className="mr-3 md:block hidden">
                         Meno Priezvisko
-                    </p>}
+                    </p>*/}
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="secondary" className="w-fit justify-start mr-2">
+                                {role.charAt(0).toUpperCase() + role.slice(1)} View
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            <DropdownMenuItem onSelect={() => setRole('student')}>
+                                Student View
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onSelect={() => setRole('teacher')}>
+                                Teacher View
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onSelect={() => setRole('admin')}>
+                                Admin View
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onSelect={() => setRole('guest')}>
+                                Guest View / Logout
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                          className="size-10 mr-4 fill-darkgray">
                         <path fillRule="evenodd"

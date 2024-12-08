@@ -6,7 +6,9 @@ import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import {intAuth, loginControl} from "@/lib/shared-utils";
 
+let permission = 1;
 const ListElement = ({ name, student, consultant, type, year, alt }: {
     name: string,
     student: string,
@@ -40,6 +42,8 @@ const mockData = [
 export default function DatabaseBrowser() {
     const [showAdvancedSearch, setShowAdvancedSearch] = useState(false)
     const [searchTerm, setSearchTerm] = useState('')
+    permission = intAuth();
+    loginControl()
 
     return (
         <div className="container mx-auto py-8 w-full h-full">
