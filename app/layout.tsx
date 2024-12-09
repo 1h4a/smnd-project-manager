@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import Nav from '@/app/ui/components/nav'
 import "./globals.css";
 import { AuthProvider } from '@/lib/auth-context'
+import React, {Suspense} from "react";
 
 const effra = localFont({
     src: [
@@ -34,10 +35,16 @@ export default function RootLayout({
 
       <body
           className={`${effra.className} antialiased h-fit`}>
-      <AuthProvider>
-          <Nav/>
-          {children}
-      </AuthProvider>
+      <Suspense fallback={
+          <div className="w-screen h-screen flex flex-row items-center justify-center text-textgray font-medium">
+              Loading...
+          </div>
+      }>
+          <AuthProvider>
+              <Nav/>
+              {children}
+          </AuthProvider>
+      </Suspense>
       </body>
       </html>
   );
