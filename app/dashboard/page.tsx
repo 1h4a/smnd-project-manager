@@ -2,11 +2,12 @@
 
 import { Disclosure, DisclosureButton, DisclosurePanel, Button } from '@headlessui/react'
 import {intAuth, loginControl} from '@/lib/shared-utils'
-import { projectData } from '@/app/api/data/endpoint'
+import { projectData, deadlineData } from '@/app/api/data/endpoint'
 import React from "react";
 
 let permission: number = 1;
 
+// TODO: Conform API endpoint data to defined types
 const CreateProjects = (props: any) => {
     const { data, isLoading } = projectData()
     console.log(data);
@@ -29,6 +30,36 @@ const CreateProjects = (props: any) => {
                     consultant = {el.teacher}
                     type = {el.type}
                     />
+                    );
+                })
+            }
+        </>
+    )
+}
+
+const CreateDeadlines = (props: any) => {
+    const { data, isLoading } = deadlineData()
+    console.log(data);
+    console.log(isLoading);
+    if (isLoading) return (
+        <>
+            <div className="w-screen h-screen flex flex-row items-center justify-center text-textgray font-medium">
+                No deadlines available.
+            </div>
+        </>
+    )
+    const process = data.slice(0, props.n);
+    return (
+        <>
+            {
+                process.map((el: any) => {
+                    const cdate = new Date(el.date);
+                    return (
+                        <TLElement
+                            date = {cdate.getDate().toString() + '.' + cdate.getMonth().toString() + '.'}
+                            studentName = {el.student}
+                            name = {el.name}
+                        />
                     );
                 })
             }
@@ -90,19 +121,7 @@ export default function Page() {
             <div
                 className="w-32 h-96 bg-gradient-to-l from-white to-transparent z-40 absolute right-0 top-100 md:block hidden"></div>
             <div className="flex flex-row w-full h-fit pb-12 pt-8 overflow-x-scroll grow-0 shrink-0">
-                <TLElement name="Konzultácia" date="6.5." studentName="Meno Priezvisko"/>
-                <TLElement name="Prezentácia práce" date="30.5." studentName="Meno Priezvisko"/>
-                <TLElement name="Termín" date="1.10." studentName="Meno Priezvisko"/>
-                <TLElement name="Termín" date="1.10." studentName="Meno Priezvisko"/>
-                <TLElement name="Termín" date="1.10." studentName="Meno Priezvisko"/>
-                <TLElement name="Termín" date="1.10." studentName="Meno Priezvisko"/>
-                <TLElement name="Termín" date="1.10." studentName="Meno Priezvisko"/>
-                <TLElement name="Termín" date="1.10." studentName="Meno Priezvisko"/>
-                <TLElement name="Termín" date="1.10." studentName="Meno Priezvisko"/>
-                <TLElement name="Termín" date="1.10." studentName="Meno Priezvisko"/>
-                <TLElement name="Termín" date="1.10." studentName="Meno Priezvisko"/>
-                <TLElement name="Termín" date="1.10." studentName="Meno Priezvisko"/>
-                <TLElement name="Termín" date="1.10." studentName="Meno Priezvisko"/>
+                <CreateDeadlines n={10}/>
 
             </div>
             <h1 className="font-medium text-3xl lg:text-4xl 2xl:text-5xl ml-8"> Moje práce </h1>

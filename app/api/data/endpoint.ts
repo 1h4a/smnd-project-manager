@@ -16,3 +16,12 @@ export function projectData() {
         isError: error
     }
 }
+
+export function deadlineData() {
+    const { data, error, isLoading } = useSWR('Deadlines', fetcher)
+    return {
+        data,
+        isLoading,
+        isError: error
+    }
+}
