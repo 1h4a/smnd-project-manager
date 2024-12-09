@@ -2,8 +2,40 @@
 
 import { Disclosure, DisclosureButton, DisclosurePanel, Button } from '@headlessui/react'
 import {intAuth, loginControl} from '@/lib/shared-utils'
+import { projectData } from '@/app/api/data/endpoint'
+import React from "react";
 
 let permission: number = 1;
+
+const CreateProjects = (props: any) => {
+    const { data, isLoading } = projectData()
+    console.log(data);
+    console.log(isLoading);
+    if (isLoading) return (
+        <>
+            <div className="w-screen h-screen flex flex-row items-center justify-center text-textgray font-medium">
+                No projects available.
+            </div>
+        </>
+    )
+    const process = data.slice(0, props.n);
+    return (
+        <>
+            {
+                process.map((el: any) => {
+                    return (
+                        <PLDElement
+                    name = {el.name}
+                    consultant = {el.teacher}
+                    type = {el.type}
+                    />
+                    );
+                })
+            }
+        </>
+    )
+}
+
 const TLElement = (props: any) => {
     return (
         <div
@@ -48,6 +80,10 @@ export default function Page() {
     permission = intAuth();
     loginControl()
 
+    const { data, isLoading } = projectData()
+    console.log(data);
+    console.log(isLoading);
+
     return (
         <div className="flex flex-col justify-normal h-full overflow-auto pb-4">
             <h1 className="font-medium text-3xl lg:text-4xl 2xl:text-5xl ml-8"> Najbližšie termíny </h1>
@@ -71,10 +107,7 @@ export default function Page() {
             </div>
             <h1 className="font-medium text-3xl lg:text-4xl 2xl:text-5xl ml-8"> Moje práce </h1>
             <div className="flex flex-col w-1/2">
-                <PLDElement name="abcdahgregtwrefgvwsefwefwefwsefw adfgadsg a adgfagd adg adg adgaad"
-                            consultant="Meno Priezvisko" type="SOČ (Stredoškolská Odborná Činnosť)"/>
-                <PLDElement name="Téma práce" consultant="Meno Priezvisko" type="SOČ (Stredoškolská Odborná Činnosť)"/>
-                <PLDElement name="Téma práce" consultant="Meno Priezvisko" type="SOČ (Stredoškolská Odborná Činnosť)"/>
+                <CreateProjects n={5}/>
             </div>
             {(permission>2) && (<a href="/admin" className="flex items-center space-x-2">
                 <h1 className="font-medium text-3xl lg:text-4xl 2xl:text-5xl ml-8 mt-8"> Administrátorský prehľad </h1>

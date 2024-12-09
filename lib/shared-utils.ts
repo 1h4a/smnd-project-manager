@@ -39,3 +39,7 @@ export function loginControl (): void {
         permanentRedirect('/');
     }
 }
+
+
+// add function to create object array from json
+// add functions for database manipulation

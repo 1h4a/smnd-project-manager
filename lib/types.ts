@@ -24,15 +24,6 @@ export interface Project {
     files: File[]
 }
 
-export interface Topic {
-    id: string
-    title: string
-    type: ProjectType
-    teacherId: string
-    description: string
-    available: boolean
-}
-
 export interface Deadline {
     id: string
     projectId: string
