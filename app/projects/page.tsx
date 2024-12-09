@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { Disclosure, DisclosureButton, DisclosurePanel, Button } from '@headlessui/react'
 import {intAuth, loginControl} from '@/lib/shared-utils'
+import {projectData} from "@/app/api/data/endpoint";
+import React from "react";
 
 let permission: number = 1; // Lx permission level
 const PElement = (props: any) => {
@@ -98,7 +100,7 @@ const PElement = (props: any) => {
                             className="bg-ngray text-darkgray rounded-3xl p-4 px-5 mt-2 mr-4 hover:bg-gray-100 transition-colors">Zobraziť žiadosti</Button>
                     </div>
                 ) : (
-                    <div className="mt-2 text-lg ">
+                    <div className="text-lg ">
                         <Button
                             className="bg-ngray text-darkgray rounded-3xl p-4 px-5 mt-2 mr-4 hover:bg-gray-100 transition-colors">Požiadať
                             o zmenu témy</Button>
@@ -113,6 +115,38 @@ const PElement = (props: any) => {
     )
 }
 
+const CreateProjects = (props: any) => {
+    const { data, isLoading, isError } = projectData()
+
+    if (isLoading || isError) return (
+        <>
+            <div className="w-fit h-fit flex flex-col items-start justify-start text-textgray font-medium text-lg ml-16 mt-6">
+                No projects available.
+                {(!isError) && (<p className="text-regulargray font-normal">State: Preload</p>)}
+                {(isError) && (<p className="text-regulargray font-normal">Endpoint error. Contact administrator.</p>)}
+            </div>
+        </>
+    )
+    const process = data.slice(0, props.n);
+    return (
+        <>
+            {
+                process.map((el: any) => {
+                    return (
+                        <PElement
+                            name = {el.name}
+                            consultant = {el.teacher}
+                            type = {el.type}
+                            ndDate = {"6.5."}
+                            ndName = {"Konzultácia"}
+                        />
+                    );
+                })
+            }
+        </>
+    )
+}
+
 export default function Page() {
     loginControl()
     permission = intAuth();
@@ -120,16 +154,9 @@ export default function Page() {
         <div className="flex flex-col justify-normal h-full overflow-auto pb-4">
             <h1 className="font-medium text-3xl lg:text-4xl 2xl:text-5xl ml-8"> Moje práce </h1>
             <div className="flex flex-row shrink-0 grow-0 w-full pr-8 h-fit pb-12 overflow-y-hidden overflow-x-scroll">
-                <PElement name="Téma práce" consultant="Meno Priezvisko" type="SOČ (Stredoškolská Odborná Činnosť)"
-                          ndDate="6.5." ndName="Konzultácia"/>
-                <PElement name="abcdahgregtwrefgvwsefwefwefwsefw adfgadsg a adgfagd adg adg adgaad"
-                          consultant="Meno Priezvisko" type="SOČ (Stredoškolská Odborná Činnosť)" ndDate="6.5."
-                          ndName="Konzultácia"/>
-                <PElement name="Téma práce" consultant="Meno Priezvisko" type="SOČ (Stredoškolská Odborná Činnosť)"
-                          ndDate="6.5." ndName="Konzultácia"/>
-                <PElement name="abcdahgregtwrefgvwsefwefwefwsefw adfgadsg a adgfagd adg adg adgaad"
-                          consultant="Meno Priezvisko" type="SOČ (Stredoškolská Odborná Činnosť)" ndDate="6.5."
-                          ndName="Konzultácia"/>
+                <CreateProjects
+                    n={10}
+                />
             </div>
             {(permission > 1) && (
                 <span className="ml-8 text-lg">

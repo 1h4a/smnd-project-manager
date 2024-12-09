@@ -10,7 +10,8 @@ const FileContext: React.FC<ContextMenuProps> = ({ x, y, onClose }) => {
         setMounted(true)
         console.log('ContextMenu mounted')
         const handleClick = (e: MouseEvent) => {
-            if ((e.target as HTMLElement).closest('.context-menu') === null) {
+            const el = e.target;
+            if ((el as HTMLElement).closest('.context-menu') === null) {
                 onClose()
             }
         }

@@ -1,9 +1,10 @@
 'use client';
 import { Input, Listbox, ListboxButton, ListboxOption, ListboxOptions  } from '@headlessui/react'
 import clsx from 'clsx'
-import { useState, useCallback } from 'react'
+import React, { useState, useCallback } from 'react'
 import FileContext from '@/app/ui/components/filecontext'
 import {loginControl} from "@/lib/shared-utils";
+import {fileData} from "@/app/api/data/endpoint";
 
 const projects = [
     { id: 1, name: 'Práca 1' },
@@ -17,6 +18,44 @@ const views = [
     { id: 2, name: 'Posledná zmena' },
     { id: 3, name: 'Dátum vytvorenia' },
 ]
+
+const File = (props: any) => {
+    return(<div className="flex flex-col justify-center items-center py-4">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+             className="size-16 text-darkgray">
+            <path
+                d="M3 3.5A1.5 1.5 0 0 1 4.5 2h6.879a1.5 1.5 0 0 1 1.06.44l4.122 4.12A1.5 1.5 0 0 1 17 7.622V16.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 3 16.5v-13Z"/>
+        </svg>
+        <p className="text-darkgray truncate max-w-32"> {props.fileName} </p>
+    </div>)
+}
+
+const CreateFiles = (props: any)=> {
+    const { data, isError, isLoading } = fileData();
+    if (isLoading || isError) return (
+        <>
+            <div className="w-fit h-fit flex flex-col items-start justify-start text-textgray font-medium text-lg ml-16 mt-6">
+                No files available.
+                {(!isError) && (<p className="text-regulargray font-normal">State: Preload</p>)}
+                {(isError) && (<p className="text-regulargray font-normal">Endpoint error. Contact administrator.</p>)}
+            </div>
+        </>
+    )
+    const process = data.slice(0, props.n);
+    return(
+        <>
+            {
+                process.map((el: any) => {
+                    return (
+                        <File
+                            fileName={el.name}
+                        />
+                    );
+                })
+            }
+        </>
+    )
+}
 export default function Page() {
     const [selected, setSelected] = useState(projects[0])
     const [altselected, altsetSelected] = useState(views[0])
@@ -27,9 +66,9 @@ export default function Page() {
 
     const handleContextMenu = useCallback((event: React.MouseEvent) => {
         event.preventDefault()
-        const { clientX, clientY } = event
-        console.log('Right-click detected:', { clientX, clientY })
-        setContextMenu({ x: clientX -80, y: clientY-220 })
+        const {clientX, clientY} = event
+        console.log('Right-click detected:', {clientX, clientY})
+        setContextMenu({x: clientX - 80, y: clientY - 220})
     }, [])
 
     const handleCloseContextMenu = useCallback(() => {
@@ -95,7 +134,7 @@ export default function Page() {
                 )}
 
                 <span
-                    className="w-full h-full pt-8 grid grid-rows-8 md:grid-cols-12 grid-flow-row gap-4 bg-black/10 shadow-inner shadow-gray-200 outline outline-1 outline-textgray/40 rounded-xl"> {/*Latest files view - always 5> files - to-do: file fetching based on project id*/}
+                    className="w-full h-full pt-8 grid auto-rows-max md:grid-cols-12 grid-flow-row gap-4 bg-black/10 shadow-inner shadow-gray-200 outline outline-1 outline-textgray/40 rounded-xl overflow-y-scroll">
                     <Listbox value={altselected} onChange={altsetSelected}>
                     <ListboxButton className={clsx(
                         'absolute justify-end flex flex-row right-2 top-2 w-fit text-darkgray text-nowrap truncate rounded-lg outline-2 -outline-offset-2 outline-black/50 py-1.5 px-4',
@@ -127,46 +166,9 @@ export default function Page() {
                         ))}
                     </ListboxOptions>
                 </Listbox>
-                    <div className="flex flex-col justify-center items-center py-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                         className="size-16 text-docx">
-                        <path
-                            d="M3 3.5A1.5 1.5 0 0 1 4.5 2h6.879a1.5 1.5 0 0 1 1.06.44l4.122 4.12A1.5 1.5 0 0 1 17 7.622V16.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 3 16.5v-13Z"/>
-                    </svg>
-                    <p className="text-darkgray"> verzia3.docx </p>
-                </div>
-                <div className="flex flex-col justify-center items-center py-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                         className="size-16 text-uid-ft">
-                        <path
-                            d="M3 3.5A1.5 1.5 0 0 1 4.5 2h6.879a1.5 1.5 0 0 1 1.06.44l4.122 4.12A1.5 1.5 0 0 1 17 7.622V16.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 3 16.5v-13Z"/>
-                    </svg>
-                    <p className="text-darkgray"> graf.png </p>
-                </div>
-                <div className="flex flex-col justify-center items-center py-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                         className="size-16 text-pptx">
-                        <path
-                            d="M3 3.5A1.5 1.5 0 0 1 4.5 2h6.879a1.5 1.5 0 0 1 1.06.44l4.122 4.12A1.5 1.5 0 0 1 17 7.622V16.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 3 16.5v-13Z"/>
-                    </svg>
-                    <p className="text-darkgray"> prezen...pptx </p>
-                </div>
-                <div className="flex flex-col justify-center items-center py-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                         className="size-16 text-docx">
-                        <path
-                            d="M3 3.5A1.5 1.5 0 0 1 4.5 2h6.879a1.5 1.5 0 0 1 1.06.44l4.122 4.12A1.5 1.5 0 0 1 17 7.622V16.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 3 16.5v-13Z"/>
-                    </svg>
-                    <p className="text-darkgray"> verzia2.docx </p>
-                </div>
-                <div className="flex flex-col justify-center items-center py-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                         className="size-16 text-xlsx">
-                        <path
-                            d="M3 3.5A1.5 1.5 0 0 1 4.5 2h6.879a1.5 1.5 0 0 1 1.06.44l4.122 4.12A1.5 1.5 0 0 1 17 7.622V16.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 3 16.5v-13Z"/>
-                    </svg>
-                    <p className="text-darkgray"> dotaznik.xlsx </p>
-                </div>
+                    <CreateFiles
+                    n={100}
+                    />
             </span>
             </div>
         </div>

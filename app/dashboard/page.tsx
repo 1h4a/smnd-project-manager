@@ -7,15 +7,16 @@ import React from "react";
 
 let permission: number = 1;
 
-// TODO: Conform API endpoint data to defined types
 const CreateProjects = (props: any) => {
-    const { data, isLoading } = projectData()
+    const { data, isLoading, isError } = projectData()
     console.log(data);
     console.log(isLoading);
-    if (isLoading) return (
+    if (isLoading || isError) return (
         <>
-            <div className="w-screen h-screen flex flex-row items-center justify-center text-textgray font-medium">
+            <div className="w-fit h-fit flex flex-col items-start justify-start text-textgray font-medium text-lg ml-16 mt-6">
                 No projects available.
+                {(!isError) && (<p className="text-regulargray font-normal">State: Preload</p>)}
+                {(isError) && (<p className="text-regulargray font-normal">Endpoint error. Contact administrator.</p>)}
             </div>
         </>
     )
@@ -38,13 +39,15 @@ const CreateProjects = (props: any) => {
 }
 
 const CreateDeadlines = (props: any) => {
-    const { data, isLoading } = deadlineData()
+    const { data, isLoading, isError } = deadlineData()
     console.log(data);
     console.log(isLoading);
-    if (isLoading) return (
+    if (isLoading || isError) return (
         <>
-            <div className="w-screen h-screen flex flex-row items-center justify-center text-textgray font-medium">
+            <div className="w-fit h-fit flex flex-col items-start justify-start text-textgray font-medium text-lg ml-16">
                 No deadlines available.
+                {(!isError) && (<p className="text-regulargray font-normal">State: Preload</p>)}
+                {(isError) && (<p className="text-regulargray font-normal">Endpoint error. Contact administrator.</p>)}
             </div>
         </>
     )
@@ -107,7 +110,6 @@ const PLDElement = (props: any) => {
     </div>)
 }
 export default function Page() {
-    // data is example junk, add object generation abilities
     permission = intAuth();
     loginControl()
 
@@ -129,7 +131,7 @@ export default function Page() {
                 <CreateProjects n={5}/>
             </div>
             {(permission>2) && (<a href="/admin" className="flex items-center space-x-2">
-                <h1 className="font-medium text-3xl lg:text-4xl 2xl:text-5xl ml-8 mt-8"> Administrátorský prehľad </h1>
+                <h1 className="font-medium text-3xl lg:text-4xl 2xl:text-5xl ml-8 mt-8"> Administrátorský panel </h1>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-8 mt-9">
                     <path fillRule="evenodd"
                           d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z"
