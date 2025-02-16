@@ -9,6 +9,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import SignIn from '@/app/ui/components/loginbtn'
 export default function Nav() {
     const { role, setRole } = useAuth()
     return (
@@ -19,6 +20,7 @@ export default function Nav() {
             </a>
             <div className="flex flex-row">
                 <NavLinks/>
+                <SignIn />
             </div>
                 <a href="/" className="flex items-center justify-center">
                     {/*<p className="mr-3 md:block hidden">

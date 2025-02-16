@@ -2,7 +2,7 @@
 
 import { Disclosure, DisclosureButton, DisclosurePanel, Button } from '@headlessui/react'
 import {intAuth, loginControl} from '@/lib/shared-utils'
-import { projectData, deadlineData } from '@/app/api/data/endpoint'
+import { projectData, deadlineData } from '@/app/api/data/dataSource'
 import React from "react";
 
 let permission: number = 1;

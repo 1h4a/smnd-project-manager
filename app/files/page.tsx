@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import React, { useState, useCallback } from 'react'
 import FileContext from '@/app/ui/components/filecontext'
 import {loginControl} from "@/lib/shared-utils";
-import {fileData} from "@/app/api/data/endpoint";
+import {fileData} from "@/app/api/data/dataSource";
 
 const projects = [
     { id: 1, name: 'Práca 1' },
