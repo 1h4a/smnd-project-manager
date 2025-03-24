@@ -4,6 +4,7 @@ import Nav from '@/app/ui/components/nav'
 import "./globals.css";
 import { AuthProvider } from '@/lib/auth-context'
 import React, {Suspense} from "react";
+import {SessionProvider} from "next-auth/react";
 
 const effra = localFont({
     src: [
@@ -41,8 +42,10 @@ export default function RootLayout({
           </div>
       }>
           <AuthProvider>
-              <Nav/>
-              {children}
+              <SessionProvider>
+                  <Nav/>
+                  {children}
+              </SessionProvider>
           </AuthProvider>
       </Suspense>
       </body>

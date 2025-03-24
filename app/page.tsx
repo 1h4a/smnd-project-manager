@@ -5,6 +5,7 @@ import { permanentRedirect } from 'next/navigation'
 import { intAuth, loginControl } from "@/lib/shared-utils";
 import { useAuth } from "@/lib/auth-context";
 import {useEffect} from "react";
+import SignIn from "@/app/ui/components/loginbtn";
 
 export default function Home() {
     let lx = intAuth();
@@ -60,9 +61,10 @@ export default function Home() {
                                     Vás.</p>
                                 <p>Pre pokračovanie sa prihláste pomocou Teams účtu.</p>
                             </div>
-                            <Button
+                        {/*<Button
                                 className="inline-flex rounded w-fit bg-almostblack py-2 px-4 my-8 text-white 2xl:text-xl lg:text-lg text-base  hover:bg-ultradark active:bg-gray-900 hover:outline-1 hover:outline-gray-300 transition-colors"
-                                onClick={() => setRole('student')}> Entra ID Login </Button>
+                                onClick={() => setRole('student')}> Entra ID Login </Button>*/}
+                        <SignIn />
                     </div>
                 </div>
                 <Image

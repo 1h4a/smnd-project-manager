@@ -1,0 +1,167 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+// Auth.js required models (modified)
+
+model User {
+  // Auth fields
+  id            String        @id @default(cuid())
+  name          String?
+  email         String        @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  // System fields
+  role          Role          @default(STUDENT)
+  projectId String?
+  project       Project?      @relation(fields: [projectId], references: [id])
+  topics        Topic[]
+  texts         Text[]
+  applications  Application[]
+  submissions   Submission[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+}
+
+// System architecture models
+
+model File {
+  id         String       @id @unique @default(cuid())
+  size       Float
+  path       String       @unique
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  access     AccessType // if private, the file can only be accessed by users in the assigned field within the related project
+  project    Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId  String
+  Submission Submission[]
+}
+
+model Application {
+  id        String @id @unique @default(cuid())
+  applicant User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  topic     Topic  @relation(fields: [topicId], references: [id])
+  message   String
+  userId    String
+  topicId   String
+}
+
+model Submission {
+  id        String   @id @unique @default(cuid())
+  userId    String
+  projectId String
+  fileId    String
+  createdAt DateTime @default(now())
+  submitter User     @relation(fields: [userId], references: [id])
+  project   Project  @relation(fields: [projectId], references: [id])
+  file      File     @relation(fields: [fileId], references: [id])
+  messsage  String
+}
+
+model ProjectType {
+  id       Int       @id @default(autoincrement()) // system identifier, formatted as camelCase - eg. projektovaPraca
+  timeline Json
+  projects Project[]
+  name     String // formatted name of the project type, if it does not exist, the id will be resolved into a semi-formatted form
+}
+
+model Topic {
+  id           String        @id @unique @default(cuid())
+  topic        String
+  assigned     User[]
+  isOpen       Boolean       @default(true) // if a topic is open, it is not yet transformed to a project, if it is closed, it is a project that is no longer available for application
+  applications Application[]
+}
+
+model Project {
+  id            String       @id @unique @default(cuid())
+  projectTypeId Int
+  assigned      User[]
+  files         File[]
+  texts         Text[]
+  topic         String
+  description   String
+  submissions   Submission[]
+  stdTimeline   Boolean      @default(true) // does the project adhere to the standard timeline?
+  // the system tries real hard to make standard and alt timeline data structures cross-compatible
+  // the alt timeline is derived from the standard, and the system assumes only the dates are changing
+  // in this way, mass admin operations can still target projects with edited timelines
+  // if new points/deadlines are added in the timeline, the system will try to carry them over, and will only
+  // replace std timeline points and keep the alt ones as is.
+  altTimeline   Json // actually used to write local timeline derivation, gets normalized to standard timeline if
+  // stdTimeline = true
+  type          ProjectType  @relation(fields: [projectTypeId], references: [id])
+}
+
+model Text {
+  id        Int        @id @unique @default(autoincrement())
+  authorId  String
+  projectId String
+  title     String
+  content   String
+  access    AccessType
+  createdAt DateTime   @default(now())
+  updatedAt DateTime
+  author    User       @relation(fields: [authorId], references: [id])
+  project   Project    @relation(fields: [projectId], references: [id]) // text inherits project permission attributes
+}
+
+enum Role {
+  STUDENT
+  TEACHER
+  ADMIN
+}
+
+enum AccessType {
+  PUBLIC
+  PRIVATE
+}

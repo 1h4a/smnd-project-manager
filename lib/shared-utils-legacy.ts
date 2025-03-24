@@ -1,13 +1,9 @@
 ﻿import { useAuth } from '@/lib/auth-context'
 import { usePathname, permanentRedirect } from 'next/navigation'
-import { useSession } from "next-auth/react"
 
 export function intAuth ():number {
-    const { data: session } = useSession();
     const roles: String[] = ["guest", "student", "teacher", "admin"]
-    //const { role } = useAuth();
-    const role = (session?.user?.id != null ? "admin" : "guest")
-    console.log(session?.user?.id);
+    const { role } = useAuth();
     const lx: number = roles.indexOf(role);
     console.log("USER PERMISSION LEVEL: " + lx);
     return lx
