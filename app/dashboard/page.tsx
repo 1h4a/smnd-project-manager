@@ -1,74 +1,7 @@
-'use client'
-
 import { Disclosure, DisclosureButton, DisclosurePanel, Button } from '@headlessui/react'
-import {intAuth, loginControl} from '@/lib/shared-utils'
-import { projectData, deadlineData } from '@/app/api/data/dataSource'
 import React from "react";
-
-let permission: number = 1;
-
-const CreateProjects = (props: any) => {
-    const { data, isLoading, isError } = projectData()
-    console.log(data);
-    console.log(isLoading);
-    if (isLoading || isError) return (
-        <>
-            <div className="w-fit h-fit flex flex-col items-start justify-start text-textgray font-medium text-lg ml-16 mt-6">
-                No projects available.
-                {(!isError) && (<p className="text-regulargray font-normal">State: Preload</p>)}
-                {(isError) && (<p className="text-regulargray font-normal">Endpoint error. Contact administrator.</p>)}
-            </div>
-        </>
-    )
-    const process = data.slice(0, props.n);
-    return (
-        <>
-            {
-                process.map((el: any) => {
-                    return (
-                        <PLDElement
-                    name = {el.name}
-                    consultant = {el.teacher}
-                    type = {el.type}
-                    />
-                    );
-                })
-            }
-        </>
-    )
-}
-
-const CreateDeadlines = (props: any) => {
-    const { data, isLoading, isError } = deadlineData()
-    console.log(data);
-    console.log(isLoading);
-    if (isLoading || isError) return (
-        <>
-            <div className="w-fit h-fit flex flex-col items-start justify-start text-textgray font-medium text-lg ml-16">
-                No deadlines available.
-                {(!isError) && (<p className="text-regulargray font-normal">State: Preload</p>)}
-                {(isError) && (<p className="text-regulargray font-normal">Endpoint error. Contact administrator.</p>)}
-            </div>
-        </>
-    )
-    const process = data.slice(0, props.n);
-    return (
-        <>
-            {
-                process.map((el: any) => {
-                    const cdate = new Date(el.date);
-                    return (
-                        <TLElement
-                            date = {cdate.getDate().toString() + '.' + cdate.getMonth().toString() + '.'}
-                            studentName = {el.student}
-                            name = {el.name}
-                        />
-                    );
-                })
-            }
-        </>
-    )
-}
+import {fetchTimeline, Timeline} from "@/components/timeline";
+import { auth } from "@/auth"
 
 const TLElement = (props: any) => {
     return (
@@ -77,7 +10,7 @@ const TLElement = (props: any) => {
             <div className="flex flex-col items-start px-10">
                 <p> {props.date} </p>
                 <p className="font-medium text-3xl pt-8"> {props.name} </p>
-                {(permission > 1) && (<p className="pt-8 text-textgray"> {props.studentName} </p>)}
+                {(true) && (<p className="pt-8 text-textgray"> {props.studentName} </p>)}
             </div>
         </div>
     );
@@ -103,19 +36,15 @@ const PLDElement = (props: any) => {
                     súbory</Button>
                 <Button
                     className="bg-ngray text-darkgray rounded-3xl p-4 px-5 mt-2 mr-4 hover:bg-gray-100 transition-colors">Termíny</Button>
-                {(permission > 1) && (<Button
+                {(true) && (<Button
                     className="bg-red-400 text-white rounded-3xl p-4 px-5 mt-2 mr-4 hover:bg-red-500 transition-colors">Odstrániť</Button>)}
             </DisclosurePanel>
         </Disclosure>
     </div>)
 }
-export default function Page() {
-    permission = intAuth();
-    loginControl()
-
-    const { data, isLoading } = projectData()
-    console.log(data);
-    console.log(isLoading);
+export default async function Page() {
+    const session = await auth()
+    const { user: data, error } = await fetchTimeline(session?.user?.id!)
 
     return (
         <div className="flex flex-col justify-normal h-full overflow-auto pb-4">
@@ -123,14 +52,17 @@ export default function Page() {
             <div
                 className="w-32 h-96 bg-gradient-to-l from-white to-transparent z-40 absolute right-0 top-100 md:block hidden"></div>
             <div className="flex flex-row w-full h-fit pb-12 pt-8 overflow-x-scroll grow-0 shrink-0">
-                <CreateDeadlines n={10}/>
+                <Timeline
+                    user={data}
+                    error={error}
+                />
 
             </div>
             <h1 className="font-medium text-3xl lg:text-4xl 2xl:text-5xl ml-8"> Moje práce </h1>
             <div className="flex flex-col w-1/2">
-                <CreateProjects n={5}/>
+                // Projects
             </div>
-            {(permission>2) && (<a href="/admin" className="flex items-center space-x-2">
+            {(true) && (<a href="/admin" className="flex items-center space-x-2">
                 <h1 className="font-medium text-3xl lg:text-4xl 2xl:text-5xl ml-8 mt-8"> Administrátorský panel </h1>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-8 mt-9">
                     <path fillRule="evenodd"

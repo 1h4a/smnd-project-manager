@@ -1,6 +1,7 @@
 import { prisma } from "@/prisma"
 
 import { _timeline } from "@/lib/timeline"
+import React from "react";
 
 export function getCurrentOffset(date: string) {
     let date1 = new Date();
@@ -19,7 +20,8 @@ interface ElementProps {
 }
 
 interface TimelineProps {
-    user: any
+    user: any,
+    error: boolean
 }
 
 const TLElement = ({ offset, name, assigned }: ElementProps) => {
@@ -70,22 +72,43 @@ export async function fetchTimeline(uid: string) {
                 }
             }
         }) as any
-        return user
+        return { user: user, error: false }
     }
     catch (error) {
         console.error('Database error: ', error)
-        throw new Error('Failed to fetch timeline data.')
+        return { user: {}, error: true }
     }
 
 }
 
-export function Timeline({ user } : TimelineProps) {
+export function Timeline({ user, error } : TimelineProps) {
     const assigned = user.project.assigned
     let timeline = _timeline
     timeline = user.project.altTimeline as any
 
     const startDate = timeline.properties.startDate
     const schema = timeline.schema
+
+    if (error) {
+        return (
+            <>
+                <div className="w-fit h-fit flex flex-col items-start justify-start text-textgray font-medium text-lg ml-16 mt-6">
+                    No projects available.
+                    <p className="text-regulargray font-normal">Endpoint error. Contact administrator.</p>
+                </div>
+            </>
+        )
+    }
+
+    if (schema.length == 0) {
+        return (
+            <>
+                <div className="w-fit h-fit flex flex-col items-start justify-start text-textgray font-medium text-lg ml-16 mt-6">
+                    No projects available.
+                </div>
+            </>
+        )
+    }
 
     return (
         <div className="flex flex-row p-4 items-center justify-center">
