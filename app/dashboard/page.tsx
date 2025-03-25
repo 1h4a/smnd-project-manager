@@ -3,18 +3,6 @@ import React from "react";
 import {fetchTimeline, Timeline} from "@/components/timeline";
 import { auth } from "@/auth"
 
-const TLElement = (props: any) => {
-    return (
-        <div
-            className="flex-none flex flex-col w-fit min-w-8 bg-white h-full rounded-3xl shadow-2xl outline outline-1 outline-gray-100 text-2xl text-left ml-8 py-8 justify-center items-center">
-            <div className="flex flex-col items-start px-10">
-                <p> {props.date} </p>
-                <p className="font-medium text-3xl pt-8"> {props.name} </p>
-                {(true) && (<p className="pt-8 text-textgray"> {props.studentName} </p>)}
-            </div>
-        </div>
-    );
-}
 const PLDElement = (props: any) => {
     return (
         <div className="mt-4 ml-8 w-full divide-y divide-white/5 rounded-xl bg-white drop-shadow-xl">
@@ -25,7 +13,7 @@ const PLDElement = (props: any) => {
                             <p className="absolute right-10 font-normal text-textgray text-xl mr-4">{props.consultant}</p>
                         </span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-                     stroke="currentColor" className="mt-3 size-5 stroke-textgray group-data-[open]:rotate-180">
+                     stroke="currentColor" className="mt-3 size-5 stroke-textgray group-data-open:rotate-180">
                     <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
                 </svg>
             </DisclosureButton>
@@ -50,7 +38,7 @@ export default async function Page() {
         <div className="flex flex-col justify-normal h-full overflow-auto pb-4">
             <h1 className="font-medium text-3xl lg:text-4xl 2xl:text-5xl ml-8"> Najbližšie termíny </h1>
             <div
-                className="w-32 h-96 bg-gradient-to-l from-white to-transparent z-40 absolute right-0 top-100 md:block hidden"></div>
+                className="w-32 h-96 bg-linear-to-l from-white to-transparent z-40 absolute right-0 top-100 md:block hidden"></div>
             <div className="flex flex-row w-full h-fit pb-12 pt-8 overflow-x-scroll grow-0 shrink-0">
                 <Timeline
                     user={data}

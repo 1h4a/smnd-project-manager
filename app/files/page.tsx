@@ -88,21 +88,21 @@ export default function Page() {
                         'outline-2 -outline-offset-2 outline-black/50'
                     )}><div className="flex flex-row">{selected.name}
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-                             stroke="currentColor" className="size-5 data-[closed]:rotate-180">
+                             stroke="currentColor" className="size-5 data-closed:rotate-180">
                     <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
                 </svg></div>
 
                     </ListboxButton>
                     <ListboxOptions anchor="bottom" className={clsx(
                         'w-fit text-darkgray rounded-xl outline-2 -outline-offset-2 outline-black/50 bg-ngray mt-2 p-1 [--anchor-gap:var(--spacing-1)]',
-                        'transition duration-100 ease-in data-[leave]:data-[closed]:opacity-0'
+                        'transition duration-100 ease-in data-leave:data-closed:opacity-0'
                     )}>
                         {projects.map((project) => (
                             <ListboxOption key={project.id} value={project}
-                                           className=" transition-colors truncate text-nowrap w-full max-w-[20vw] group flex cursor-default items-center gap-2 rounded-lg py-1.5 px-3 select-none data-[focus]:bg-textgray/20"
+                                           className=" transition-colors truncate text-nowrap w-full max-w-[20vw] group flex cursor-default items-center gap-2 rounded-lg py-1.5 px-3 select-none data-focus:bg-textgray/20"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                     className="size-4 invisible  group-data-[selected]:visible">
+                                     className="size-4 invisible  group-data-selected:visible">
                                     <path fillRule="evenodd"
                                           d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
                                           clipRule="evenodd"/>
@@ -116,7 +116,7 @@ export default function Page() {
                 <Input
                     className={clsx(
                         'py-1.5 px-3 block w-full rounded-lg border-none bg-ngray text-md text-black truncate',
-                        'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-black/5'
+                        'focus:outline-hidden data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-black/5'
                     )}
                     placeholder="Vyhľadávanie podľa témy, študenta, učiteľa..."
                 />
@@ -141,22 +141,22 @@ export default function Page() {
                         'outline-2 -outline-offset-2 outline-black/50'
                     )}><div className="flex flex-row">{altselected.name}
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-                             stroke="currentColor" className="size-5 data-[closed]:rotate-180 mt-0.5 ml-1">
+                             stroke="currentColor" className="size-5 data-closed:rotate-180 mt-0.5 ml-1">
                     <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
                 </svg></div>
 
                     </ListboxButton>
                     <ListboxOptions anchor="bottom end" className={clsx(
                         'w-fit text-darkgray rounded-xl outline-2 -outline-offset-2 outline-black/50 bg-white mt-2 p-1',
-                        'transition duration-100 ease-in data-[leave]:data-[closed]:opacity-0'
+                        'transition duration-100 ease-in data-leave:data-closed:opacity-0'
                     )}>
                         <p className="py-1.5 px-3">Zoradiť podľa</p>
                         {views.map((view) => (
                             <ListboxOption key={view.id} value={view}
-                                           className=" transition-colors truncate text-nowrap w-full max-w-[20vw] group flex cursor-default items-center gap-2 rounded-lg py-1.5 px-3 select-none data-[focus]:bg-textgray/20"
+                                           className=" transition-colors truncate text-nowrap w-full max-w-[20vw] group flex cursor-default items-center gap-2 rounded-lg py-1.5 px-3 select-none data-focus:bg-textgray/20"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                     className="size-4 invisible  group-data-[selected]:visible">
+                                     className="size-4 invisible  group-data-selected:visible">
                                     <path fillRule="evenodd"
                                           d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
                                           clipRule="evenodd"/>

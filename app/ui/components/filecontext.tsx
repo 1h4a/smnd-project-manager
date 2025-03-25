@@ -26,7 +26,7 @@ const FileContext: React.FC<ContextMenuProps> = ({ x, y, onClose }) => {
 
     return (
         <div
-            className="fixed z-50 context-menu bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+            className="fixed z-50 context-menu bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-hidden"
             style={{top: y, left: x}}
         >
             <div className="px-1 py-1 text-md">

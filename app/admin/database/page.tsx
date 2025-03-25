@@ -19,7 +19,7 @@ const ListElement = ({ name, student, consultant, type, year, alt }: {
 }) => {
     return (
         <div className={`w-full py-4 px-6 flex items-center justify-between ${alt ? 'bg-gray-100' : 'bg-white'}`}>
-            <div className="grid grid-cols-5 gap-4 flex-grow">
+            <div className="grid grid-cols-5 gap-4 grow">
                 <p className="truncate">{name}</p>
                 <p className="truncate">{student}</p>
                 <p className="truncate">{consultant}</p>
@@ -58,7 +58,7 @@ export default function DatabaseBrowser() {
                                 placeholder="Search by topic, student, teacher..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="flex-grow"
+                                className="grow"
                             />
                             <Button onClick={() => setShowAdvancedSearch(!showAdvancedSearch)}>
                                 {showAdvancedSearch ? 'Simple Search' : 'Advanced Search'}

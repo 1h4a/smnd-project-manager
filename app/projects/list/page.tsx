@@ -74,7 +74,7 @@ export default function Page() {
                 <Input
                     className={clsx(
                         'mt-3 block w-full rounded-lg border-none bg-ngray py-1.5 px-3 text-md text-black',
-                        'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-black/5'
+                        'focus:outline-hidden data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-black/5'
                     )}
                     placeholder="Vyhľadávanie podľa témy, študenta, učiteľa..."
                 />

@@ -177,7 +177,7 @@ export default function Page() {
                     className="group flex flex-row w-full items-center justify-start font-medium text-2xl text-ultradark">
                     <p className="transition-colors">Minulé Práce</p>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-                         stroke="currentColor" className="ml-2 size-5 group-data-[open]:rotate-180">
+                         stroke="currentColor" className="ml-2 size-5 group-data-open:rotate-180">
                         <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
                     </svg>
                 </DisclosureButton>
