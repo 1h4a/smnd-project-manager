@@ -37,8 +37,6 @@ export default async function Page() {
     return (
         <div className="flex flex-col justify-normal h-full overflow-auto pb-4">
             <h1 className="font-medium text-3xl lg:text-4xl 2xl:text-5xl ml-8"> Najbližšie termíny </h1>
-            <div
-                className="w-32 h-96 bg-linear-to-l from-white to-transparent z-40 absolute right-0 top-100 md:block hidden"></div>
             <div className="flex flex-row w-full h-fit pb-12 pt-8 overflow-x-scroll grow-0 shrink-0">
                 <Timeline
                     user={data}
@@ -48,7 +46,7 @@ export default async function Page() {
             </div>
             <h1 className="font-medium text-3xl lg:text-4xl 2xl:text-5xl ml-8"> Moje práce </h1>
             <div className="flex flex-col w-1/2">
-                // Projects
+                { /* Projects */ }
             </div>
             {(true) && (<a href="/admin" className="flex items-center space-x-2">
                 <h1 className="font-medium text-3xl lg:text-4xl 2xl:text-5xl ml-8 mt-8"> Administrátorský panel </h1>

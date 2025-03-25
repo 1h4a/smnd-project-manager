@@ -44,7 +44,7 @@ const TLElement = ({ offset, name, assigned }: ElementProps) => {
 
     return (
         <div
-            className="flex-none flex flex-col w-fit min-w-8 bg-black/60 h-full rounded-3xl shadow-2xl outline outline-1 outline-black text-2xl text-left ml-8 py-8 justify-center items-center">
+            className="flex-none flex flex-col w-fit min-w-8 bg-white h-full rounded-3xl shadow-2xl outline-1 outline-ngray text-2xl text-left ml-8 py-8 justify-start items-start">
             <div className="flex flex-col items-start px-10">
                 <p> {offsetText} </p>
                 <p className="font-medium text-3xl pt-8"> {name} </p>
@@ -111,7 +111,7 @@ export function Timeline({ user, error } : TimelineProps) {
     }
 
     return (
-        <div className="flex flex-row p-4 items-center justify-center">
+        <div className="flex flex-row p-4 items-start justify-start">
             {
                 schema.map((element, i) => (
                     <TLElement

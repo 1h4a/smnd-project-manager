@@ -2,37 +2,36 @@
 
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react'
 import { UserRole } from '@/lib/types'
+import { prisma } from "@/prisma"
+import {useSession} from "next-auth/react";
 
 type AuthContextType = {
     role: UserRole
     setRole: (role: UserRole) => void
-    login: (role: UserRole) => void
-    logout: () => void
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export function AuthProvider({ children }: { children: ReactNode }) {
-    const [role, setRole] = useState<UserRole>("guest")
-    const [loading, setLoading] = useState(true)
+    const [role, setRole] = useState<UserRole>("STUDENT")
+    const [loading, setLoading] = useState(false)
+    const { data: session } = useSession()
 
     useEffect(() => {
-        const checkAuth = async () => {
-            // Add auth state check code
-            await new Promise(resolve => setTimeout(resolve, 1000))
-            setRole('guest')
-            setLoading(false)
+        async function getRole() {
+            const role = await prisma.user.findUnique({
+                where: {
+                    id: session?.user?.id!
+                },
+                select: {
+                    role: true
+                }
+            })
+            setRole(role?.role!)
         }
+        getRole()
+    }, []);
 
-        checkAuth()
-    }, [])
-
-    const login = (newRole: UserRole) => {
-        setRole(newRole)
-    }
-
-    const logout = () => {
-        setRole("guest")
-    }
+    console.log(role)
 
     if (loading) {
         return (
@@ -43,7 +42,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     return (
-        <AuthContext.Provider value={{role, setRole, login, logout}}>
+        <AuthContext.Provider value={{role, setRole}}>
             {children}
         </AuthContext.Provider>
     )

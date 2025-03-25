@@ -41,12 +41,12 @@ export default function RootLayout({
               Loading...
           </div>
       }>
-          <AuthProvider>
               <SessionProvider>
+                  <AuthProvider>
                   <Nav/>
                   {children}
+                  </AuthProvider>
               </SessionProvider>
-          </AuthProvider>
       </Suspense>
       </body>
       </html>

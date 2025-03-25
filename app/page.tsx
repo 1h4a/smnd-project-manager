@@ -16,13 +16,14 @@ export default function Home() {
 
     if (success) {
         // auth success page
-        useEffect(() => {
+        /*useEffect(() => {
             const checkAuth = async () => {
                 await new Promise(resolve => setTimeout(resolve, 1000))
                 permanentRedirect(`/dashboard`) // Navigate to the dashboard
             }
             checkAuth()
-        }, [])
+        }, [])*/
+        permanentRedirect('/dashboard')
         return (
             <div className="flex flex-none w-screen h-[calc(100vh-8rem)] justify-center md:justify-start items-center">
                 <div className="flex flex-none w-full md:w-1/2 h-1/2 items-center justify-center">

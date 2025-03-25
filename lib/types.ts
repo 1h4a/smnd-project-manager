@@ -1,4 +1,4 @@
-﻿export type UserRole = "guest" | "student" | "teacher" | "admin"
+﻿export type UserRole = "STUDENT" | "TEACHER" | "ADMIN"
 
 export type ProjectType = "RP" | "PP" | "SOC"
 
