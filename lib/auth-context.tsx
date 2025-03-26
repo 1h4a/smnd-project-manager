@@ -16,23 +16,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const [loading, setLoading] = useState(false)
     const { data: session } = useSession()
 
-    useEffect(() => {
-        async function getRole() {
-            const role = await prisma.user.findUnique({
-                where: {
-                    id: session?.user?.id!
-                },
-                select: {
-                    role: true
-                }
-            })
-            setRole(role?.role!)
-        }
-        getRole()
-    }, []);
-
-    console.log(role)
-
     if (loading) {
         return (
             <div className="w-screen h-screen flex flex-row items-center justify-center text-textgray font-medium">

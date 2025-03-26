@@ -1,34 +1,21 @@
-'use client';
 import Image from "next/image";
-import { Button } from '@headlessui/react';
 import { permanentRedirect } from 'next/navigation'
-import { intAuth, loginControl } from "@/lib/shared-utils";
-import { useAuth } from "@/lib/auth-context";
-import {useEffect} from "react";
-import SignIn from "@/app/ui/components/loginbtn";
+import { SignIn } from "@/components/auth/controls";
+import { auth } from "@/auth"
 
-export default function Home() {
-    let lx = intAuth();
-    let success: boolean = (lx > 0)
-    loginControl()
+export default async function Home() {
+    const session = await auth()
 
-    const { setRole } = useAuth()
+    const success = !!session
 
     if (success) {
-        // auth success page
-        /*useEffect(() => {
-            const checkAuth = async () => {
-                await new Promise(resolve => setTimeout(resolve, 1000))
-                permanentRedirect(`/dashboard`) // Navigate to the dashboard
-            }
-            checkAuth()
-        }, [])*/
+        await new Promise(resolve => setTimeout(resolve, 1000))
         permanentRedirect('/dashboard')
         return (
             <div className="flex flex-none w-screen h-[calc(100vh-8rem)] justify-center md:justify-start items-center">
                 <div className="flex flex-none w-full md:w-1/2 h-1/2 items-center justify-center">
                     <div
-                        className="flex flex-col w-1/2 bg-white h-full rounded-xl shadow-3xl text-xl lg:text-2xl 2xl:text-3xl p-16 justify-center items-center">
+                        className="flex flex-col w-1/2 bg-white h-full rounded-xl shadow-2xl outline-1 outline-ngray text-xl lg:text-2xl 2xl:text-3xl p-16 justify-center items-center">
                         <div className="text-left"><p className="font-medium">Vitajte na projektovej platforme ŠpMNDaG.</p>
                             <p>O moment budete presmerovaní automaticky.</p>
                         </div>
@@ -50,7 +37,7 @@ export default function Home() {
             <div className="flex flex-none w-screen h-[calc(100vh-8rem)] justify-center md:justify-start items-center">
                 <div className="flex flex-none w-full lg:w-1/2 h-1/2 items-center justify-center">
                     <div
-                        className="flex flex-col w-1/2 bg-white h-fit rounded-xl shadow-3xl text-xl lg:text-2xl 2xl:text-3xl p-16 justify-center items-center">
+                        className="flex flex-col w-1/2 bg-white h-fit rounded-xl shadow-2xl outline-1 outline-ngray text-xl lg:text-2xl 2xl:text-3xl p-16 justify-center items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                  className="flex-none size-16 lg:size-32 2xl:size-60 fill-darkgray">
                                 <path fillRule="evenodd"
@@ -65,7 +52,10 @@ export default function Home() {
                         {/*<Button
                                 className="inline-flex rounded w-fit bg-almostblack py-2 px-4 my-8 text-white 2xl:text-xl lg:text-lg text-base  hover:bg-ultradark active:bg-gray-900 hover:outline-1 hover:outline-gray-300 transition-colors"
                                 onClick={() => setRole('student')}> Entra ID Login </Button>*/}
-                        <SignIn />
+                        <SignIn
+                            className="rounded w-fit bg-almostblack py-2 px-4 my-8 text-white 2xl:text-xl lg:text-lg text-base  hover:bg-ultradark active:bg-gray-900 hover:outline-1 hover:outline-gray-300 transition-colors"
+                            text="s Microsoft účtom"
+                        />
                     </div>
                 </div>
                 <Image

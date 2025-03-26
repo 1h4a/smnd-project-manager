@@ -1,38 +1,46 @@
-import { Disclosure, DisclosureButton, DisclosurePanel, Button } from '@headlessui/react'
-import React from "react";
 import {fetchTimeline, Timeline} from "@/components/timeline";
 import { auth } from "@/auth"
-
-const PLDElement = (props: any) => {
-    return (
-        <div className="mt-4 ml-8 w-full divide-y divide-white/5 rounded-xl bg-white drop-shadow-xl">
-        <Disclosure as="div" className="p-6" defaultOpen={false}>
-            <DisclosureButton className="group flex w-full items-start justify-between">
-                        <span className="flex flex-row w-full justify-between text-2xl p-2 font-medium text-black">
-                            <p className="text-left w-1/2 text-pretty truncate">{props.name}</p>
-                            <p className="absolute right-10 font-normal text-textgray text-xl mr-4">{props.consultant}</p>
-                        </span>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-                     stroke="currentColor" className="mt-3 size-5 stroke-textgray group-data-open:rotate-180">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
-                </svg>
-            </DisclosureButton>
-            <DisclosurePanel className="mt-2 text-lg">
-                <p className="font-normal text-textgray mr-8 text-left ml-2 -mt-3 mb-2">{props.type}</p>
-                <Button
-                    className="bg-ngray text-darkgray rounded-3xl p-4 px-5 mt-2 mr-4 hover:bg-gray-100 transition-colors">Nahrané
-                    súbory</Button>
-                <Button
-                    className="bg-ngray text-darkgray rounded-3xl p-4 px-5 mt-2 mr-4 hover:bg-gray-100 transition-colors">Termíny</Button>
-                {(true) && (<Button
-                    className="bg-red-400 text-white rounded-3xl p-4 px-5 mt-2 mr-4 hover:bg-red-500 transition-colors">Odstrániť</Button>)}
-            </DisclosurePanel>
-        </Disclosure>
-    </div>)
-}
+import { prisma } from "@/prisma"
+import {getPermissionLevel, Role} from "@/lib/types";
+import { PLDElement } from "@/components/projects"
 export default async function Page() {
     const session = await auth()
     const { user: data, error } = await fetchTimeline(session?.user?.id!)
+
+    let role: Role = "STUDENT"
+
+    let tname = ""
+    let tassigned: String[] = []
+    let ttype = ""
+    let tcompleted = true
+
+    if (session) {
+        const dbUser = await prisma.user.findUnique({
+            where: {
+                id: session?.user?.id!
+            },
+            select: {
+                project: {
+                    select: {
+                        topic: true,
+                        assigned: true,
+                        type: true,
+                        completed: true
+                    }
+                },
+                role: true
+            }
+        })
+        role = dbUser?.role!
+        tname = dbUser?.project?.topic!
+        ttype = dbUser?.project?.type?.name!
+        tcompleted = dbUser?.project?.completed!
+        dbUser?.project?.assigned!.map((el) => {
+            tassigned.push(el.name!)
+        })
+    }
+
+    const authLx = getPermissionLevel(role)
 
     return (
         <div className="flex flex-col justify-normal h-full overflow-auto pb-4">
@@ -44,11 +52,17 @@ export default async function Page() {
                 />
 
             </div>
-            <h1 className="font-medium text-3xl lg:text-4xl 2xl:text-5xl ml-8"> Moje práce </h1>
+            <h1 className="font-medium text-3xl lg:text-4xl 2xl:text-5xl ml-8"> Aktuálne Projekty </h1>
             <div className="flex flex-col w-1/2">
-                { /* Projects */ }
+                {<PLDElement
+                    name={tname}
+                    type={ttype}
+                    assigned={tassigned}
+                    completed = {tcompleted}
+                    authLx={authLx}
+                />}
             </div>
-            {(true) && (<a href="/admin" className="flex items-center space-x-2">
+            {(authLx > 2) && (<a href="/admin" className="flex items-center space-x-2">
                 <h1 className="font-medium text-3xl lg:text-4xl 2xl:text-5xl ml-8 mt-8"> Administrátorský panel </h1>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-8 mt-9">
                     <path fillRule="evenodd"

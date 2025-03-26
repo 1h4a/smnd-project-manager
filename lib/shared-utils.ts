@@ -7,9 +7,7 @@ export function intAuth ():number {
     const roles: String[] = ["guest", "student", "teacher", "admin"]
     //const { role } = useAuth();
     const role = (session?.user?.id != null ? "admin" : "guest")
-    console.log(session?.user?.id);
     const lx: number = roles.indexOf(role);
-    console.log("USER PERMISSION LEVEL: " + lx);
     return lx
 }
 

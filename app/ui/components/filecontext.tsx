@@ -8,7 +8,6 @@ const FileContext: React.FC<ContextMenuProps> = ({ x, y, onClose }) => {
     const [mounted, setMounted] = useState(false)
     useEffect(() => {
         setMounted(true)
-        console.log('ContextMenu mounted')
         const handleClick = (e: MouseEvent) => {
             const el = e.target;
             if ((el as HTMLElement).closest('.context-menu') === null) {
@@ -18,7 +17,6 @@ const FileContext: React.FC<ContextMenuProps> = ({ x, y, onClose }) => {
         document.addEventListener('click', handleClick)
         return () => {
             document.removeEventListener('click', handleClick)
-            console.log('ContextMenu unmounted')
         }
     }, [onClose])
 

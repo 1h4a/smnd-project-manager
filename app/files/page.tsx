@@ -67,12 +67,10 @@ export default function Page() {
     const handleContextMenu = useCallback((event: React.MouseEvent) => {
         event.preventDefault()
         const {clientX, clientY} = event
-        console.log('Right-click detected:', {clientX, clientY})
         setContextMenu({x: clientX - 80, y: clientY - 220})
     }, [])
 
     const handleCloseContextMenu = useCallback(() => {
-        console.log('Closing context menu')
         setContextMenu(null)
     }, [])
 

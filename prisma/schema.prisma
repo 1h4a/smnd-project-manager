@@ -22,7 +22,7 @@ model User {
   sessions      Session[]
   // System fields
   role          Role          @default(STUDENT)
-  projectId String?
+  projectId     String?
   project       Project?      @relation(fields: [projectId], references: [id])
   topics        Topic[]
   texts         Text[]
@@ -108,7 +108,7 @@ model Submission {
 }
 
 model ProjectType {
-  id       Int       @id @default(autoincrement()) // system identifier, formatted as camelCase - eg. projektovaPraca
+  id       Int       @id @default(autoincrement())
   timeline Json
   projects Project[]
   name     String // formatted name of the project type, if it does not exist, the id will be resolved into a semi-formatted form
@@ -140,6 +140,7 @@ model Project {
   altTimeline   Json // actually used to write local timeline derivation, gets normalized to standard timeline if
   // stdTimeline = true
   type          ProjectType  @relation(fields: [projectTypeId], references: [id])
+  completed     Boolean      @default(false)
 }
 
 model Text {
