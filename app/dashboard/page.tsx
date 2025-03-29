@@ -2,25 +2,21 @@ import {fetchTimeline, Timeline} from "@/components/timeline";
 import { auth } from "@/auth"
 import { prisma } from "@/prisma"
 import {getPermissionLevel, Role} from "@/lib/types";
-import { PLDElement } from "@/components/projects"
+import {PLDElement, ProjectList_Simple} from "@/components/projects"
 export default async function Page() {
     const session = await auth()
     const { user: data, error } = await fetchTimeline(session?.user?.id!)
 
     let role: Role = "STUDENT"
-
-    let tname = ""
-    let tassigned: String[] = []
-    let ttype = ""
-    let tcompleted = true
+    let dbUser: any
 
     if (session) {
-        const dbUser = await prisma.user.findUnique({
+        dbUser = await prisma.user.findUnique({
             where: {
                 id: session?.user?.id!
             },
             select: {
-                project: {
+                projects: {
                     select: {
                         topic: true,
                         assigned: true,
@@ -32,12 +28,6 @@ export default async function Page() {
             }
         })
         role = dbUser?.role!
-        tname = dbUser?.project?.topic!
-        ttype = dbUser?.project?.type?.name!
-        tcompleted = dbUser?.project?.completed!
-        dbUser?.project?.assigned!.map((el) => {
-            tassigned.push(el.name!)
-        })
     }
 
     const authLx = getPermissionLevel(role)
@@ -54,13 +44,7 @@ export default async function Page() {
             </div>
             <h1 className="font-medium text-3xl lg:text-4xl 2xl:text-5xl ml-8"> Aktuálne Projekty </h1>
             <div className="flex flex-col w-1/2">
-                {<PLDElement
-                    name={tname}
-                    type={ttype}
-                    assigned={tassigned}
-                    completed = {tcompleted}
-                    authLx={authLx}
-                />}
+                <ProjectList_Simple data={dbUser} authLx={authLx}/>
             </div>
             {(authLx > 2) && (<a href="/admin" className="flex items-center space-x-2">
                 <h1 className="font-medium text-3xl lg:text-4xl 2xl:text-5xl ml-8 mt-8"> Administrátorský panel </h1>

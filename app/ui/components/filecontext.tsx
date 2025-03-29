@@ -1,4 +1,5 @@
 ﻿import React, { useState, useEffect } from 'react'
+import {CirclePlus} from "lucide-react";
 interface ContextMenuProps {
     x: number
     y: number
@@ -31,11 +32,7 @@ const FileContext: React.FC<ContextMenuProps> = ({ x, y, onClose }) => {
                 <button
                     className="group flex rounded-md items-center w-full px-2 py-2 text-darkgray hover:bg-gray-100 hover:text-gray-900"
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                         strokeWidth={1.5} stroke="currentColor" className="size-6 mr-2">
-                        <path strokeLinecap="round" strokeLinejoin="round"
-                              d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                    </svg>
+                    <CirclePlus />
                     Nahrať súbor
                 </button>
                 <button

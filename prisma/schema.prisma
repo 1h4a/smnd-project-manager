@@ -22,15 +22,16 @@ model User {
   sessions      Session[]
   // System fields
   role          Role          @default(STUDENT)
-  projectId     String?
-  project       Project?      @relation(fields: [projectId], references: [id])
+  projects      Project[]
   topics        Topic[]
   texts         Text[]
   applications  Application[]
   submissions   Submission[]
+  createdFiles  File[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Settings  Settings?
 }
 
 model Account {
@@ -78,8 +79,11 @@ model File {
   id         String       @id @unique @default(cuid())
   size       Float
   path       String       @unique
+  author     User         @relation(fields: [authorId], references: [id])
+  authorId   String
   createdAt  DateTime     @default(now())
   updatedAt  DateTime     @updatedAt
+  persistent Boolean      @default(false)
   access     AccessType // if private, the file can only be accessed by users in the assigned field within the related project
   project    Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId  String
@@ -139,6 +143,7 @@ model Project {
   // replace std timeline points and keep the alt ones as is.
   altTimeline   Json // actually used to write local timeline derivation, gets normalized to standard timeline if
   // stdTimeline = true
+  year          String?
   type          ProjectType  @relation(fields: [projectTypeId], references: [id])
   completed     Boolean      @default(false)
 }
@@ -154,6 +159,19 @@ model Text {
   updatedAt DateTime
   author    User       @relation(fields: [authorId], references: [id])
   project   Project    @relation(fields: [projectId], references: [id]) // text inherits project permission attributes
+}
+
+model Settings {
+  user     User     @relation(fields: [userId], references: [id])
+  userId   String   @unique
+  id       Int      @unique @default(autoincrement())
+  darkMode Boolean  @default(false)
+  language Language @default(SK)
+}
+
+enum Language {
+  SK
+  EN
 }
 
 enum Role {

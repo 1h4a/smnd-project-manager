@@ -14,7 +14,8 @@ export function getCurrentOffset(date: string) {
 interface ElementProps {
     offset: number,
     name: string,
-    assigned: any[]
+    assigned: any[],
+    topic: string
 }
 
 interface TimelineProps {
@@ -73,7 +74,7 @@ export const _timeline = {
     }
 }
 
-const TLElement = ({ offset, name, assigned }: ElementProps) => {
+const TLElement = ({ offset, name, assigned, topic }: ElementProps) => {
     let offsetText: string
     if (offset<0) {
         offsetText = Math.abs(offset) + " days ago"
@@ -97,7 +98,8 @@ const TLElement = ({ offset, name, assigned }: ElementProps) => {
             <div className="flex flex-col items-start px-10">
                 <p> {offsetText} </p>
                 <p className="font-medium text-3xl pt-8"> {name} </p>
-                <p className="pt-8 text-textgray"> {assignedNames.join(', ')} </p>
+                <p className="text-textgray pt-8"> {topic} </p>
+                <p className="text-textgray"> {assignedNames.join(', ')} </p>
             </div>
         </div>
     );
@@ -112,8 +114,9 @@ export async function fetchTimeline(uid: string) {
                 id: uid
             },
             select: {
-                project: {
+                projects: {
                     select: {
+                        topic: true,
                         assigned: {
                             select: {
                                 name: true
@@ -133,7 +136,17 @@ export async function fetchTimeline(uid: string) {
 
 }
 
+interface UseSchema {
+    topic: string,
+    name: string,
+    assigned: any[],
+    offset: number,
+    startDate: string
+}
+
 export function Timeline({ user, error } : TimelineProps) {
+    // { topic: "", name: "", assigned: "", offset: "" }
+    let combinedSchema: UseSchema[] = []
     if (!user) {
         return (
             <>
@@ -144,35 +157,43 @@ export function Timeline({ user, error } : TimelineProps) {
             </>
         )
     } else {
-        const assigned = user.project.assigned
-        let timeline = _timeline
-        timeline = user.project.altTimeline as any
+        user.projects.map((el: any) => {
+            const assigned = el.assigned
+            const topic = el.topic
+            let timeline = _timeline
+            timeline = el.altTimeline as any
+            const startDate = timeline.properties.startDate
+            const schema = timeline.schema
+            schema.map((el, i) => {
+                combinedSchema.push({ topic: topic, name: el.name, assigned: assigned, offset: el.offset, startDate: startDate })
+            })
+        })
 
-        const startDate = timeline.properties.startDate
-        const schema = timeline.schema
-
-        if (schema.length == 0) {
+        if (combinedSchema.length == 0) {
             return (
-                <>
-                    <div className="w-fit h-fit flex flex-col items-start justify-start text-textgray font-medium text-lg ml-16 mt-6">
-                        No projects available.
-                    </div>
-                </>
+                        <>
+                            <div className="w-fit h-fit flex flex-col items-start justify-start text-textgray font-medium text-lg ml-16 mt-6">
+                                No projects available.
+                            </div>
+                        </>
             )
         }
-        return (
-            <div className="flex flex-row px-4 items-start justify-start">
-                {
-                    schema.map((element, i) => (
-                        <TLElement
-                            offset={element.offset - (getCurrentOffset(startDate))}
-                            name={element.name}
-                            assigned={assigned as any}
-                            key={"tl_el" + i}
-                        />
-                    ))
-                }
-            </div>
-        )
+
+        const sortedSchema = combinedSchema.sort((a,b) => a.offset-b.offset)
+                return (
+                    <div className="flex flex-row px-4 items-start justify-start">
+                        {
+                            sortedSchema.map((element, i) => (
+                                <TLElement
+                                    offset={element.offset - (getCurrentOffset(element.startDate))}
+                                    name={element.name}
+                                    assigned={element.assigned as any}
+                                    topic={element.topic}
+                                    key={"tl_el" + i}
+                                />
+                            ))
+                        }
+                    </div>
+                )
     }
 }

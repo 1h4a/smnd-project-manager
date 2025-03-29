@@ -1,18 +1,18 @@
 ﻿"use client"
 
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react'
-import { UserRole } from '@/lib/types'
+import { Role } from '@/lib/types'
 import { prisma } from "@/prisma"
 import {useSession} from "next-auth/react";
 
 type AuthContextType = {
-    role: UserRole
-    setRole: (role: UserRole) => void
+    role: Role
+    setRole: (role: Role) => void
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export function AuthProvider({ children }: { children: ReactNode }) {
-    const [role, setRole] = useState<UserRole>("STUDENT")
+    const [role, setRole] = useState<Role>("STUDENT")
     const [loading, setLoading] = useState(false)
     const { data: session } = useSession()
 

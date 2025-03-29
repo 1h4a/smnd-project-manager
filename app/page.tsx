@@ -15,7 +15,7 @@ export default async function Home() {
             <div className="flex flex-none w-screen h-[calc(100vh-8rem)] justify-center md:justify-start items-center">
                 <div className="flex flex-none w-full md:w-1/2 h-1/2 items-center justify-center">
                     <div
-                        className="flex flex-col w-1/2 bg-white h-full rounded-xl shadow-2xl outline-1 outline-ngray text-xl lg:text-2xl 2xl:text-3xl p-16 justify-center items-center">
+                        className="flex flex-col w-2/3 bg-white h-full rounded-xl shadow-2xl outline-1 outline-ngray text-xl lg:text-2xl 2xl:text-3xl p-16 justify-center items-center">
                         <div className="text-left"><p className="font-medium">Vitajte na projektovej platforme ŠpMNDaG.</p>
                             <p>O moment budete presmerovaní automaticky.</p>
                         </div>
@@ -28,6 +28,13 @@ export default async function Home() {
                         className="hidden md:block absolute right-0 bottom-0 blur-2xl -z-50"
                         alt="SMND logo, used as a hero image"
                     />
+                <Image
+                    src="/logo-hero.svg"
+                    width={500}
+                    height={500}
+                    className="block md:hidden absolute right-0 bottom-0 blur-2xl -z-50"
+                    alt="SMND logo, used as a hero image"
+                />
             </div>
         )
     }
@@ -37,7 +44,7 @@ export default async function Home() {
             <div className="flex flex-none w-screen h-[calc(100vh-8rem)] justify-center md:justify-start items-center">
                 <div className="flex flex-none w-full lg:w-1/2 h-1/2 items-center justify-center">
                     <div
-                        className="flex flex-col w-1/2 bg-white h-fit rounded-xl shadow-2xl outline-1 outline-ngray text-xl lg:text-2xl 2xl:text-3xl p-16 justify-center items-center">
+                        className="flex flex-col w-2/3 bg-white h-fit rounded-xl shadow-2xl outline-1 outline-ngray text-xl lg:text-2xl 2xl:text-3xl p-16 justify-center items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                  className="flex-none size-16 lg:size-32 2xl:size-60 fill-darkgray">
                                 <path fillRule="evenodd"
@@ -63,6 +70,13 @@ export default async function Home() {
                     width={1500}
                     height={1500}
                     className="hidden md:block absolute right-0 bottom-0 blur-2xl -z-50"
+                    alt="SMND logo, used as a hero image"
+                />
+                <Image
+                    src="/logo-hero.svg"
+                    width={500}
+                    height={500}
+                    className="block md:hidden absolute right-0 bottom-0 blur-2xl -z-50"
                     alt="SMND logo, used as a hero image"
                 />
             </div>
