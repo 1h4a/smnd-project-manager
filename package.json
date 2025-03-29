@@ -1,12 +1,13 @@
 {
-  "name": "soc-platform",
-  "version": "0.1.0",
+  "name": "smnd-project-manager",
+  "version": "0.7.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@auth/neon-adapter": "^1.8.0",
