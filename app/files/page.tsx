@@ -14,7 +14,7 @@ const _projects = [
     { id: 5, name: 'Práca 5' },
 ]
 
-export default async function Page({ searchParams } : { searchParams : {p?: number}}) {
+export default async function Page({ searchParams } : { searchParams : Promise<{p?: number}>}) {
     const session = await auth()
     const user = await prisma.user.findUnique({
         where: {
