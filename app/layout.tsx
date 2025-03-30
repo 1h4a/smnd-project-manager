@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Nav from '@/app/ui/components/nav'
 import "./globals.css";
-import { AuthProvider } from '@/lib/auth-context'
 import React, {Suspense} from "react";
 import {SessionProvider} from "next-auth/react";
+
+import { Toaster } from "@/components/ui/sonner"
 
 const effra = localFont({
     src: [
@@ -36,18 +37,17 @@ export default function RootLayout({
 
       <body
           className={`${effra.className} antialiased h-fit`}>
-      <Suspense fallback={
+      {/*<Suspense fallback={
           <div className="w-screen h-screen flex flex-row items-center justify-center text-textgray font-medium">
               Loading...
           </div>
-      }>
+      }>*/}
               <SessionProvider>
-                  <AuthProvider>
                   <Nav/>
-                  {children}
-                  </AuthProvider>
+                  <main>{children}</main>
+                  <Toaster />
               </SessionProvider>
-      </Suspense>
+      {/*</Suspense>*/}
       </body>
       </html>
   );

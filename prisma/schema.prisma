@@ -78,7 +78,8 @@ model VerificationToken {
 model File {
   id         String       @id @unique @default(cuid())
   size       Float
-  path       String       @unique
+  key        String       @unique
+  name       String
   author     User         @relation(fields: [authorId], references: [id])
   authorId   String
   createdAt  DateTime     @default(now())
@@ -87,7 +88,7 @@ model File {
   access     AccessType // if private, the file can only be accessed by users in the assigned field within the related project
   project    Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId  String
-  Submission Submission[]
+  submission Submission[]
 }
 
 model Application {
