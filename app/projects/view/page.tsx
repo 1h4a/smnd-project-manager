@@ -2,9 +2,7 @@
 import Link from "next/link";
 import { useState, useCallback } from 'react'
 import FileContext from '@/app/ui/components/filecontext'
-import {intAuth, loginControl} from '@/lib/shared-utils'
 
-let permission: number = 1;
 const TLElement = (props: any) => {
     return (
         <div
@@ -19,10 +17,6 @@ const TLElement = (props: any) => {
 
 
 export default function Page() {
-    loginControl()
-    permission = intAuth();
-    // add admin data edit options !
-
     const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null)
 
     const handleContextMenu = useCallback((event: React.MouseEvent) => {
